@@ -162,6 +162,16 @@ check("browser surfaces themed", "The surfaces you did not draw still carry the 
 check("unearned defaults stay earnable", "the brief's own words can earn any of them" in quality)
 check("reading mode linked", "reading-surfaces.md" in linked)
 check("reading mode is comprehension-first", "Structure for comprehension first" in reading)
+reference = " ".join((references / "reference-to-code.md").read_text(encoding="utf-8").split())
+preflight = " ".join((references / "production-preflight.md").read_text(encoding="utf-8").split())
+lenses = " ".join((references / "style-lenses.md").read_text(encoding="utf-8").split())
+experience = " ".join((references / "experience-surfaces.md").read_text(encoding="utf-8").split())
+check("fidelity inventory precedes building", "Write the fidelity inventory before building" in reference)
+check("silent drops named", "silently drops" in reference)
+check("extreme inputs are concrete", "not just the idea of them" in preflight)
+check("amplification stays in vocabulary", "Amplifying within a lens" in lenses and "skeleton test" in lenses)
+check("experience mode linked", "experience-surfaces.md" in linked)
+check("experience mode recedes", "the interface recedes" in experience)
 
 calibration = texts["profile-calibration.md"]
 check("three controlled variants", all(label in calibration for label in ("baseline A", "candidate B", "B-no-flag")))

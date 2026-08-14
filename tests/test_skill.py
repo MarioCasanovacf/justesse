@@ -19,6 +19,7 @@ REFERENCE_NAMES = {
     "react-next-tailwind.md",
     "production-preflight.md",
     "reading-surfaces.md",
+    "experience-surfaces.md",
     "upstream-provenance.md",
     "profile-activation.md",
     "profile-declaration.md",
@@ -157,6 +158,7 @@ class JustesseTests(unittest.TestCase):
             "Reference to code",
             "Visual review",
             "Reading / documentation",
+            "Experience / showcase",
             "Image concept",
             "do not silently switch modes",
         ):
@@ -444,6 +446,35 @@ class JustesseTests(unittest.TestCase):
         self.assertIn("Structure for comprehension first", reading)
         self.assertIn("Assume arrival mid-page", reading)
         self.assertIn("not from the product", reading)
+
+    def test_absorbed_tranche_two_rules_are_present(self):
+        """Tranche 2: fidelity inventory, extreme inputs, amplification, experience mode."""
+        reference = normalized(SKILL / "references" / "reference-to-code.md")
+        preflight = normalized(SKILL / "references" / "production-preflight.md")
+        lenses = normalized(SKILL / "references" / "style-lenses.md")
+        experience = normalized(SKILL / "references" / "experience-surfaces.md")
+        # Fidelity inventory: media decided by the reference, silent drops forbidden.
+        self.assertIn("Write the fidelity inventory before building", reference)
+        self.assertIn(
+            "The element that never gets written down is the element the build silently drops",
+            reference,
+        )
+        self.assertIn("a quantity commitment", reference)
+        self.assertIn("never a silent flattening after it", reference)
+        # Extreme inputs are concrete cases, not the idea of them.
+        self.assertIn("not just the idea of them", preflight)
+        for extreme in ("single-character", "right-to-left", "a third longer"):
+            with self.subTest(extreme=extreme):
+                self.assertIn(extreme, preflight)
+        # Amplification: system's own vocabulary, one move, skeleton test.
+        self.assertIn("Amplifying within a lens", lenses)
+        self.assertIn("the opposite of bold", lenses)
+        self.assertIn("If every element got louder, the section got flatter", lenses)
+        self.assertIn("skeleton test", lenses)
+        # Experience mode: the work leads, the interface recedes, honesty holds.
+        self.assertIn("The artifact leads; the interface recedes", experience)
+        self.assertIn("Do not dress a concept as a shipped product", experience)
+        self.assertIn("Chronology is a default, not a decision", experience)
 
 
 if __name__ == "__main__":

@@ -24,14 +24,18 @@ tools, punctuation, random aesthetic selection, or a fixed image-per-section rul
 
 - Upstream URL: https://github.com/pbakaus/impeccable
 - Pinned source commit: c8f476b330395031bc8f7a7aee8d848bc85c81e4
-- Relevant upstream source: .agents/skills/impeccable/SKILL.md,
-  reference/craft-floor.md, and reference/operate.md
+- Relevant upstream source: .agents/skills/impeccable/SKILL.md, reference/craft-floor.md,
+  reference/operate.md, reference/visualize.md, reference/bolder.md, and reference/harden.md
 - License: Apache-2.0, retained in full at `../LICENSE.upstream-impeccable`
 
-Inspired three distillations, each rewritten as original stack-neutral prose: the built-result
+Inspired seven distillations, each rewritten as original stack-neutral prose: the built-result
 verification checks and unearned-defaults catalog in
 [interface-quality.md](interface-quality.md), the bounded-verification discipline in the core
-workflow, and the reading-surface mode in [reading-surfaces.md](reading-surfaces.md). The
+workflow, the reading-surface mode in [reading-surfaces.md](reading-surfaces.md), the
+experience-surface mode in [experience-surfaces.md](experience-surfaces.md), the fidelity
+inventory in [reference-to-code.md](reference-to-code.md), the concrete extreme-input catalog in
+[production-preflight.md](production-preflight.md), and the amplification discipline in
+[style-lenses.md](style-lenses.md). The
 adaptation does not inherit impeccable's runtime machinery (setup scripts, hooks, live browser
 iteration, agent definitions), its command surface, or its maximalist default posture; in this
 skill the brief and the product contract remain governing, and profiles remain declared rather

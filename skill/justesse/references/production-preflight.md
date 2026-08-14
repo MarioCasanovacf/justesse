@@ -20,7 +20,12 @@ not execute.
 - [ ] Type, color, spacing, grid, icons, radii, borders, shadows, imagery, and motion form one
   coherent system rather than a collection of trends.
 - [ ] Real content extremes, long labels, missing data, localization, and applicable product states
-  do not break the design.
+  do not break the design. Exercise the concrete extremes, not just the idea of them: a name or
+  title far longer than the design assumed and a single-character one; special characters, accents,
+  and emoji in user-supplied text; right-to-left scripts where the product supports them;
+  translations up to a third longer than the source language; numbers at display-breaking
+  magnitude; lists at one item, none, and orders of magnitude more than the design was composed
+  with.
 - [ ] Marketing evidence is authentic; dashboard units and freshness are clear; transactional
   totals, consequences, validation, progress, and recovery are correct where applicable.
 

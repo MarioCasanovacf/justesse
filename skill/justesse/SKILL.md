@@ -30,6 +30,7 @@ controls the workflow and acceptance bar.
 | Reference to code | Translate supplied visual evidence into the target project's native implementation | [reference-to-code.md](references/reference-to-code.md) |
 | Visual review | Diagnose hierarchy, coherence, usability, responsiveness, and production risk | [interface-quality.md](references/interface-quality.md) |
 | Reading / documentation | Help a reader understand something through docs, guides, articles, help, or changelogs | [reading-surfaces.md](references/reading-surfaces.md) |
+| Experience / showcase | Put a visitor inside portfolio, gallery, or exhibition work while the interface recedes | [experience-surfaces.md](references/experience-surfaces.md) |
 | Image concept | Define or produce art direction that serves the interface | [image-concepts.md](references/image-concepts.md) |
 | Data visualization | Turn measures, comparisons, distributions, relationships, and uncertainty into inspectable evidence | [data-visualization.md](references/data-visualization.md) |
 | Executive decision memo | Turn bounded evidence into a conclusion-led presentation for a decision-maker | [decision-memo.md](references/decision-memo.md) |
@@ -92,6 +93,8 @@ Load only what the active mode needs; every reference is directly linked here.
   editorial-conversion, pricing, launch, or other acquisition surfaces.
 - Read [reading-surfaces.md](references/reading-surfaces.md) for documentation, guides, articles,
   help, changelogs, and long-form pages whose job is comprehension.
+- Read [experience-surfaces.md](references/experience-surfaces.md) for portfolios, galleries,
+  showcases, and exhibition pages where the work itself leads.
 - Read [product-and-transaction.md](references/product-and-transaction.md) for application UI,
   dashboards, data-dense workspaces, forms, checkout, onboarding, settings, and multi-step flows.
 - Read [data-visualization.md](references/data-visualization.md) whenever a surface contains a KPI,
