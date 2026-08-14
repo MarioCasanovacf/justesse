@@ -84,6 +84,22 @@ NON_ANSWERS = {
     "xxx",
     "xx",
     "lorem ipsum",
+    # The same non-answers in Spanish, which is what this form is most often filled in.
+    "pendiente",
+    "por definir",
+    "no aplica",
+    "ninguno",
+    "ninguna",
+    "el de siempre",
+    "la de siempre",
+    "lo de siempre",
+    "igual que antes",
+    "lo mismo",
+    "cualquiera",
+    "lo que sea",
+    "no sé",
+    "no se",
+    "ni idea",
 }
 # Deferrals that can hide inside a longer sentence.
 NON_ANSWER_SUBSTRINGS = (
@@ -97,7 +113,79 @@ NON_ANSWER_SUBSTRINGS = (
     "to be defined",
     "to be determined",
     "tbd",
+    "tú decides",
+    "tu decides",
+    "tú decide",
+    "tu decide",
+    "como veas",
+    "a tu criterio",
+    "lo que tú creas",
+    "lo que tu creas",
+    "como tú creas",
+    "como tu creas",
+    "lo que veas",
+    "lo que prefieras",
+    "el que quieras",
+    "igual que el",
+    "igual que la",
+    "como el otro",
+    "como la otra",
 )
+
+# A worked example per field, so a blocked run can re-ask concretely instead of saying "invalid".
+# These fix the shape of an answer, never propose one: a declaration that echoes them has declared
+# nothing, which is why `profile-declaration.md` refuses copies of them.
+EXAMPLES = {
+    "identity.name": "atlas",
+    "identity.owner": "Atlas Research Cooperative",
+    "identity.scope": '["quarterly research notes", "internal decision memos"]',
+    "identity.purpose": "present bounded quantitative research without implying commercial claims",
+    "canvas.surface": "#FFFDF7",
+    "canvas.ink": "#121212",
+    "canvas.dark_variant": '{"surface": "#101010", "ink": "#F2F2F2"} or null for none',
+    "type_roles.display.family": "Source Serif 4",
+    "type_roles.display.fallback": "Georgia, serif",
+    "type_roles.display.availability": "installed",
+    "semantic_color.positive.hex": "#1F5F3F",
+    "semantic_color.positive.redundancy": '["direct label", "upward marker"]',
+    "action_treatment": "an ink-outlined button with an underlined label, never a status fill",
+    "geometry.corner_radius_px": "0",
+    "geometry.hairline_px": "1 (not \"thin\")",
+    "geometry.emphasis_rule_px": "3",
+    "geometry.spacing_base_px": "8",
+    "geometry.elevation": "no shadow at any level; separation comes from rules and spacing",
+    "voice.person": "first person singular for authored statements",
+    "voice.heading_case": "sentence case",
+    "voice.register": '["precise", "restrained", "impersonal"]',
+    "voice.refuses": '["exclamation marks", "superlatives", "brand-we"]',
+    "exclusions": '["gradients", "glow and glass", "automatic dark mode", "bounce motion", "stock photography of people"]',
+    "posture.density": "balanced, one evidence module per fold",
+    "posture.motion": "none beyond focus states",
+    "evidence.unit": "stated on every axis and every displayed total",
+    "evidence.period": "ISO week range, unbroken",
+    "evidence.source": "named dataset and capture date in the caption",
+    "evidence.uncertainty": "interval bands on every estimated series",
+}
+
+
+def example_for(field: str) -> str:
+    """The closest worked example for a field path, including indexed and per-role paths."""
+    stripped = re.sub(r"\[\d+\]", "", field)
+    if stripped in EXAMPLES:
+        return EXAMPLES[stripped]
+    parts = stripped.split(".")
+    # Per-role paths reuse the documented role's example: type_roles.ui.family -> display.family.
+    if len(parts) == 3 and parts[0] == "type_roles":
+        return EXAMPLES.get(f"type_roles.display.{parts[2]}", "")
+    if len(parts) == 3 and parts[0] == "semantic_color":
+        return EXAMPLES.get(f"semantic_color.positive.{parts[2]}", "")
+    while parts:
+        parts.pop()
+        candidate = ".".join(parts)
+        if candidate in EXAMPLES:
+            return EXAMPLES[candidate]
+    return ""
+
 
 failures: list[str] = []
 
@@ -295,10 +383,12 @@ def main(argv: list[str]) -> int:
     problems = validate(declaration)
     if problems:
         for problem in problems:
-            print(f"FAIL: {problem}")
+            field = problem.split(":", 1)[0]
+            example = example_for(field)
+            print(f"FAIL: {problem}" + (f"\n      re-ask, e.g. {example}" if example else ""))
         print(
             f"\nBLOCKED: {len(problems)} field(s) are undeclared or non-concrete. "
-            "Re-ask only these, then re-run. Do not begin design work."
+            "Re-ask only these, with the example attached, then re-run. Do not begin design work."
         )
         return 1
     name = declaration["identity"]["name"]

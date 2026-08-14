@@ -48,13 +48,19 @@ check("generic light paper prohibited", "light paper canvas is not a default" in
 check("ships no bundled profile", "ships the profile\nmechanism and no profile" in skill_text or "ships the profile mechanism and no profile" in " ".join(skill_text.split()))
 check("declaration gates design work", "before\nmaking any design decision" in skill_text or "before making any design decision" in " ".join(skill_text.split()))
 
-# No personal payload may ship inside the skill tree.
+# No personal payload may ship inside the skill tree. The declaration form is the one file allowed
+# to carry literals, because a worked example is what makes a field answerable; everywhere else a
+# literal is a bundled value a run could inherit. The form pays for that exemption by stating that
+# copying an example is itself a non-answer.
+FORM = "profile-declaration.md"
 corpus = "\n".join(
-    path.read_text(encoding="utf-8") for path in sorted(SKILL.rglob("*.md"))
+    path.read_text(encoding="utf-8")
+    for path in sorted(SKILL.rglob("*.md"))
+    if path.name != FORM
 ).casefold()
 check("every reference file is linked from the router", {path.name for path in references.glob("*.md")} == linked)
-check("no reference ships a color value", not re.search(r"#[0-9a-f]{6}", corpus))
-check("no reference ships a named type stack", not re.search(
+check("no reference outside the form ships a color value", not re.search(r"#[0-9a-f]{6}", corpus))
+check("no reference outside the form ships a named type stack", not re.search(
     r"\b(didot|garamond|baskerville|helvetica|futura|inter|roboto)\b", corpus
 ))
 
@@ -73,6 +79,16 @@ for field in (
     "Geometry", "Voice", "Exclusions", "Posture", "Evidence",
 ):
     check(f"declaration field {field.casefold()}", f"| {field} |" in declaration)
+# Every field must be askable: a bare question gets a mood back where the form needs a measurement.
+check("never ask a field bare", "Always ask with an example attached" in declaration)
+check("form carries an example column", "| Example |" in declaration)
+check("example fixes shape not answer", "It does not propose the answer" in declaration)
+check("copying an example is refused", "Copying an example is itself a non-answer" in declaration)
+check("example column flagged as a failure source", "the most likely source of this failure" in declaration)
+check("worked examples are concrete", all(
+    token in declaration for token in ("e.g. `atlas`", "e.g. `#FFFDF7`", 'Not "off-white"', 'Not "thin"')
+))
+check("every field carries a worked example", declaration.count("|") >= 10 * 5)
 check("rejects non-answers", "Reject non-answers" in declaration)
 check("rejects deferral", '"you decide"' in declaration)
 check("rejects borrowed values", "A borrowed value" in declaration)

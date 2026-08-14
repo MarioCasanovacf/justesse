@@ -159,6 +159,42 @@ class NonAnswerTests(unittest.TestCase):
             with self.subTest(deferral=deferral):
                 self.assertRefused(replacing("posture.density", deferral), "posture.density")
 
+    def test_spanish_deferrals_are_refused(self):
+        """The form is filled in Spanish more often than not."""
+        for deferral in (
+            "tú decides",
+            "tu decide",
+            "como veas",
+            "a tu criterio",
+            "lo que sea",
+            "el de siempre",
+            "por definir",
+            "no sé",
+            "pues como tú creas que se ve mejor",
+        ):
+            with self.subTest(deferral=deferral):
+                self.assertRefused(replacing("posture.density", deferral), "posture.density")
+
+    def test_a_blocked_field_reports_a_worked_example_to_re_ask_with(self):
+        """The gate has to say what to ask for, not just that something is wrong."""
+        self.assertEqual(validate_profile.example_for("canvas.surface"), "#FFFDF7")
+        self.assertEqual(validate_profile.example_for("identity.owner"), "Atlas Research Cooperative")
+        # Per-role paths inherit the documented role's example.
+        self.assertEqual(
+            validate_profile.example_for("type_roles.ui.availability"), "installed"
+        )
+        self.assertEqual(
+            validate_profile.example_for("semantic_color.negative.hex"), "#1F5F3F"
+        )
+        self.assertEqual(validate_profile.example_for("exclusions[3]"), validate_profile.EXAMPLES["exclusions"])
+        for field in validate_profile.REQUIRED_FIELDS:
+            with self.subTest(field=field):
+                self.assertTrue(
+                    validate_profile.example_for(field)
+                    or any(key.startswith(f"{field}.") for key in validate_profile.EXAMPLES),
+                    msg=f"{field} has no worked example to re-ask with",
+                )
+
     def test_borrowed_values_are_refused(self):
         for borrowed in ("same as before", "same as the last deck", "like the other profile"):
             with self.subTest(borrowed=borrowed):

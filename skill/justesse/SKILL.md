@@ -43,6 +43,8 @@ An active flag opens a required declaration rather than granting a visual system
 answers to all ten fields in [profile-declaration.md](references/profile-declaration.md) before
 making any design decision under the profile, and never fill an unanswered field by inference or by
 borrowing a value from another profile, from this skill's examples, or from its harness fixtures.
+Ask every field with a worked example attached, in that field's own answer shape; a bare question
+returns a mood where the form needs a measurement.
 
 ## Core workflow
 

@@ -225,9 +225,15 @@ class JustesseTests(unittest.TestCase):
                 self.assertIn(phrase, semantics)
 
     def test_repository_ships_the_mechanism_and_no_profile(self):
-        """No named individual's design system may ship inside the skill tree."""
+        """No named individual's design system may ship inside the skill tree.
+
+        The declaration form is exempt: it carries worked examples, which is what makes a
+        field answerable at all. It pays for the exemption by refusing copies of them.
+        """
         corpus = "\n".join(
-            path.read_text(encoding="utf-8") for path in sorted(SKILL.rglob("*.md"))
+            path.read_text(encoding="utf-8")
+            for path in sorted(SKILL.rglob("*.md"))
+            if path.name != "profile-declaration.md"
         )
         self.assertNotRegex(corpus, r"#[0-9A-Fa-f]{6}")
         self.assertNotRegex(
@@ -238,6 +244,33 @@ class JustesseTests(unittest.TestCase):
             "ships the profile mechanism and no profile",
             normalized(SKILL / "SKILL.md"),
         )
+
+    def test_the_form_asks_with_a_worked_example_for_every_field(self):
+        """A bare question returns a mood where the form needs a measurement."""
+        declaration = normalized(SKILL / "references" / "profile-declaration.md")
+        self.assertIn("Always ask with an example attached", declaration)
+        self.assertIn("| Example |", declaration)
+        for example in ("e.g. `atlas`", "e.g. `#FFFDF7`", "e.g. `1`"):
+            with self.subTest(example=example):
+                self.assertIn(example, declaration)
+        for counterexample in ('Not "off-white"', 'Not "thin"'):
+            with self.subTest(counterexample=counterexample):
+                self.assertIn(counterexample, declaration)
+        self.assertIn("It does not propose the answer", declaration)
+        self.assertIn("Copying an example is itself a non-answer", declaration)
+        # Ten field rows, each with an example cell of its own.
+        rows = [
+            line
+            for line in (SKILL / "references" / "profile-declaration.md")
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if re.match(r"\A\| \d+ \|", line)
+        ]
+        self.assertEqual(len(rows), 10)
+        for row in rows:
+            with self.subTest(row=row.split("|")[2].strip()):
+                self.assertEqual(row.count("|"), 5)
+                self.assertTrue(row.rsplit("|", 2)[1].strip())
 
     def test_activation_opens_a_declaration_it_cannot_answer_itself(self):
         skill = normalized(SKILL / "SKILL.md")
