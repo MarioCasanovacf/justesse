@@ -177,6 +177,8 @@ check("finishing linked and loaded last", "finishing.md" in linked and "Read [fi
 check("finishing never a pardon", "never buys forgiveness" in finishing)
 check("surface temperature is a decision", "Surface temperature is a decision" in finishing)
 check("one watermark on the record", "The watermark principle" in finishing and "Name the move in the design read" in finishing)
+check("emptiness is assigned, not left over", "Emptiness has to be assigned" in finishing and "equal distances so nothing groups" in finishing)
+check("sparse surfaces are measured, not eyeballed", "measure each surface's top gap and bottom gap" in finishing)
 check("comparison instrument named", "tools/diff_specimens.py" in finishing)
 check("convergence is a failure", "convergence to one look, however refined, is a failure" in finishing)
 

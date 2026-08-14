@@ -29,6 +29,23 @@ support is narrow, so treat cross-engine hanging as an enhancement measured from
 a requirement. Round positions to the device grid so hairlines stay crisp instead of straddling
 pixels.
 
+## Emptiness has to be assigned
+
+A sparse composition fails in a specific way: not too little content, but content spread at roughly
+equal distances so nothing groups. Three elements separated by three similar gaps give the eye no
+structure, and undifferentiated space reads as absence rather than air. The gap between a heading
+and the sentence that supports it is not the same measurement as the gap between that pair and the
+next idea; when they are set to the same number, the reader is told those relationships are equal,
+which is a claim the design did not mean to make.
+
+Assign the emptiness instead. Bind related elements into one block at a distance that reads as
+belonging. Anchor the element that carries the weight — a conclusion, a recommendation, a headline
+figure — to a baseline held constant across the surfaces of one system, so a reader moving between
+them finds it in the same place. What is left over becomes a single deliberate void between two
+anchored masses, which composes, rather than several similar voids, which drift. On a fixed canvas
+this is easy to check numerically: measure each surface's top gap and bottom gap, and treat a
+sparse surface whose empty space collects at one end as unfinished.
+
 ## Letterforms at small sizes
 
 - Letterspace runs of capitals and small capitals slightly; their forms were drawn to stand apart.

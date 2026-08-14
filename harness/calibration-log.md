@@ -90,3 +90,23 @@ attention, not instrumentation — and the fix that holds is the deterministic o
 boxes for overflow past their declared height, and for collision after wrapping, is a measurement a
 browser can make and a rule can require; it is not yet an executable gate. That is the next
 instrument, and it is named here so the gap is on the record rather than in someone's memory.
+
+**Round 2d — same day — the operator's first look at the deck.** With the deck finally viewable,
+the harness operator read the sparse slides as carrying awkward empty space. Measured, the reading
+held: the two dense slides sat at 46/36 and 46/44 px of top and bottom gap, while `situation`,
+`decision`, and `risk` sat at 96/126, 96/122, and 56/108 — and inside them, three or four elements
+were spread across the canvas at similar 80–126 px intervals, so nothing grouped. The system was
+also inconsistent with itself: slide 3 anchored its annotation at y=560 while slides 1 and 4 left
+theirs floating at 470.
+
+Recomposed, no copy touched: each title binds to its supporting sentence as one block, and every
+standing element — annotation, decision bar, headline figure — anchors to a shared baseline whose
+bottom edge sits 36 px above the footer rule. All five slides now close at the same gap. The
+generalized rule is in `references/finishing.md` as "Emptiness has to be assigned," with two
+assertions in `validate_skill.py`. Deck, inventory, and renders regenerated: 5 slides, 81 native
+objects, 0 rasterized.
+
+This round is the human gate doing its job. The automated gates all passed on a deck with a
+composition defect in three of five slides, because no gate measures whether space was assigned or
+merely left over. That is the argument for keeping a human in the rubric, and the reason the round
+2 verdict still reads *provisional*.
