@@ -61,6 +61,11 @@ promotion provisional pending the human gate. No rule regression surfaced; no sp
 value was copied into the skill.
 
 **Round 2b — same day — token-emitter fidelity check.** After `tools/declaration2tokens.py`
-landed, the three HTML surfaces were rebuilt with their hand-transcribed token blocks replaced by
-the emitted ones, and re-inventoried. `diff_specimens.py --expect-same` against the pre-swap
-inventories: see the entry appended below once run.
+landed, the three HTML surfaces were rebuilt consuming the emitted tokens by reference
+(`--surface: var(--j-surface)` and so on; derived values such as panel tints and hairline colors
+stayed outside the declaration's authority) and re-inventoried at both viewports.
+`diff_specimens.py --expect-same` against the hand-transcribed originals: dashboard, personal
+landing, and case-study report all report **SAME DESIGN, delta-free**. The emitter is a faithful
+mechanical projection of the declaration; the transcription step, where drift used to live, is
+gone. The deck path keeps literal values by design (the presentation-safe subset resolves
+everything at authoring time) and was not part of this check.

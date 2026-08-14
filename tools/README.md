@@ -13,6 +13,7 @@ Both use only the Python standard library. There is nothing to install.
 | `inspect_pptx.py` | A PPTX to an NDJSON object inventory: geometry, color, type, text, background, and any rasterized region |
 | `inspect_html.mjs` | A rendered HTML surface to the same inventory shape, one slide per viewport |
 | `diff_specimens.py` | Two inventories to a graded delta report and a design verdict that content cannot sway |
+| `declaration2tokens.py` | A validated profile declaration to namespaced `--j-*` design tokens (CSS or JSON) |
 
 ```bash
 python3 tools/html2deck.py deck.html deck.pptx
@@ -66,6 +67,17 @@ content (`::before`, `::after`, background images, SVG, canvas, iframes), and ra
 
 Substituting a picture for a region that failed to convert is a scope change, not a rendering
 detail. Disclose it.
+
+## Declaring is building
+
+`declaration2tokens.py` closes the gap between passing the declaration gate and building: it emits
+the declared values as namespaced `--j-*` custom properties (or flat JSON), so no one transcribes a
+declaration by hand — and hand transcription is where the drift lives that `diff_specimens.py`
+would otherwise catch later. The gate composes: an incomplete declaration is refused field by
+field, and nothing is emitted. Surfaces consume tokens by reference (`--surface: var(--j-surface)`)
+and keep their derived values — panel tints, hairline colors — outside the declaration's
+authority. Verified in calibration round 2b: three surfaces rebuilt on emitted tokens re-inventory
+as SAME DESIGN, delta-free (see `../harness/calibration-log.md`).
 
 ## Verifying, in the right direction
 
