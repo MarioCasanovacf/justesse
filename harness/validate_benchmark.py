@@ -77,7 +77,10 @@ check("seven profile invariants", len(contract["profile_invariants_when_flagged"
 check("invariants trace to the declaration", any(
     "declaration" in invariant for invariant in contract["profile_invariants_when_flagged"]
 ))
-check("seven hard gates", len(contract["hard_gates"]) == 7)
+check("eight hard gates", len(contract["hard_gates"]) == 8)
+check("anti-convergence gate present", any(
+    "measurably distinct designs" in gate for gate in contract["hard_gates"]
+))
 check("promotion delta", contract["automated_promotion"]["minimum_total_improvement_points"] == 15)
 check("no surface regression", contract["automated_promotion"]["surface_regressions_allowed"] == 0)
 check("human gate retained", "profile owner" in contract["human_gate"] and "publish" in contract["human_gate"])

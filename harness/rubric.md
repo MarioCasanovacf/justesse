@@ -26,6 +26,14 @@ profile owner's final judgment. Any failed hard gate blocks promotion regardless
 - **Case study/report:** question, data, method, findings, limits, and decision form one argument;
   figures are evidence, not decoration.
 
+## Fine-grained comparison
+
+Where paired specimens have object inventories, run `tools/diff_specimens.py` before scoring. Its
+graded deltas (surface temperature, geometry to the pixel, type size and family) are evidence for
+the scorer, not a substitute for judgment, and its convergence verdict executes the hard gate that
+the flagged variant and the no-flag control must be measurably distinct designs rather than one
+design carrying different words.
+
 ## Promotion rule
 
 Promote B only when all hard gates pass, its total exceeds A by at least 15 points, no surface

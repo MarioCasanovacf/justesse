@@ -20,6 +20,7 @@ REFERENCE_NAMES = {
     "production-preflight.md",
     "reading-surfaces.md",
     "experience-surfaces.md",
+    "finishing.md",
     "upstream-provenance.md",
     "profile-activation.md",
     "profile-declaration.md",
@@ -475,6 +476,24 @@ class JustesseTests(unittest.TestCase):
         self.assertIn("The artifact leads; the interface recedes", experience)
         self.assertIn("Do not dress a concept as a shipped product", experience)
         self.assertIn("Chronology is a default, not a decision", experience)
+
+    def test_finishing_is_last_bounded_and_never_a_pardon(self):
+        """Finishing refines what already works; it cannot buy forgiveness."""
+        skill = normalized(SKILL / "SKILL.md")
+        finishing = normalized(SKILL / "references" / "finishing.md")
+        self.assertIn("Read [finishing.md](references/finishing.md) last", skill)
+        self.assertIn("The last pass, and only the last pass", finishing)
+        self.assertIn("never buys forgiveness", finishing)
+        # Surface temperature and optical alignment are decisions, not defaults.
+        self.assertIn("Surface temperature is a decision", finishing)
+        self.assertIn("Optical outranks mechanical", finishing)
+        self.assertIn("safe progressive enhancement", finishing)
+        # One watermark, named on the record; two compete.
+        self.assertIn("The watermark principle", finishing)
+        self.assertIn("Name the move in the design read", finishing)
+        # Near-identical judgment routes to the instrument, in both directions.
+        self.assertIn("tools/diff_specimens.py", finishing)
+        self.assertIn("convergence to one look, however refined, is a failure", finishing)
 
 
 if __name__ == "__main__":

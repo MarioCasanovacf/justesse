@@ -48,6 +48,20 @@ def text_of(node):
     )
 
 
+def type_of(node):
+    """Size in px and family of the first styled run, or (None, None)."""
+    for props in node.iter(f"{A}rPr"):
+        size = props.get("sz")
+        latin = props.find(f"{A}latin")
+        family = latin.get("typeface") if latin is not None else None
+        if size is not None:
+            # sz is hundredths of a point; px = pt * 96/72.
+            return round(int(size) / 100 * 96 / 72, 1), family
+        if family:
+            return None, family
+    return None, None
+
+
 def fill_of(node):
     solid = node.find(f"{P}spPr/{A}solidFill/{A}srgbClr")
     if solid is not None:
@@ -79,7 +93,11 @@ def inspect(path):
                 child for child in tree
                 if child.tag in (f"{P}sp", f"{P}pic", f"{P}graphicFrame", f"{P}grpSp")
             ]
-            records.append({"kind": "slide", "slide": number, "objects": len(shapes)})
+            slide_record = {"kind": "slide", "slide": number, "objects": len(shapes)}
+            background = root.find(f"{P}cSld/{P}bg/{P}bgPr/{A}solidFill/{A}srgbClr")
+            if background is not None:
+                slide_record["background"] = "#" + background.get("val")
+            records.append(slide_record)
             for shape in shapes:
                 if shape.tag == f"{P}pic":
                     name_node = shape.find(f"{P}nvPicPr/{P}cNvPr")
@@ -121,6 +139,11 @@ def inspect(path):
                     text = text_of(shape)
                     record["text"] = text
                     record["textChars"] = len(text)
+                    size, family = type_of(shape)
+                    if size is not None:
+                        record["fontSizePx"] = size
+                    if family:
+                        record["fontFamily"] = family
                 records.append(record)
     return records
 

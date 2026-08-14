@@ -101,7 +101,8 @@
     "Flagged B resolves every profile choice from a complete declaration and invents none.",
     "B without the activation flag remains brand-neutral and does not leak profile identity.",
     "Responsive renders and all five slides avoid clipping, overflow, and illegible contrast.",
-    "Every requested surface, provenance record, render, and QA result exists."
+    "Every requested surface, provenance record, render, and QA result exists.",
+    "The flagged variant and the no-flag control are measurably distinct designs, not one design carrying different words; where object inventories exist, tools/diff_specimens.py --expect-distinct passes."
   ],
   "automated_promotion": {
     "all_hard_gates_required": true,

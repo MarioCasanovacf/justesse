@@ -172,6 +172,13 @@ check("extreme inputs are concrete", "not just the idea of them" in preflight)
 check("amplification stays in vocabulary", "Amplifying within a lens" in lenses and "skeleton test" in lenses)
 check("experience mode linked", "experience-surfaces.md" in linked)
 check("experience mode recedes", "the interface recedes" in experience)
+finishing = " ".join((references / "finishing.md").read_text(encoding="utf-8").split())
+check("finishing linked and loaded last", "finishing.md" in linked and "Read [finishing.md](references/finishing.md) last" in skill_text)
+check("finishing never a pardon", "never buys forgiveness" in finishing)
+check("surface temperature is a decision", "Surface temperature is a decision" in finishing)
+check("one watermark on the record", "The watermark principle" in finishing and "Name the move in the design read" in finishing)
+check("comparison instrument named", "tools/diff_specimens.py" in finishing)
+check("convergence is a failure", "convergence to one look, however refined, is a failure" in finishing)
 
 calibration = texts["profile-calibration.md"]
 check("three controlled variants", all(label in calibration for label in ("baseline A", "candidate B", "B-no-flag")))

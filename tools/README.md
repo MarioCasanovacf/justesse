@@ -10,12 +10,26 @@ Both use only the Python standard library. There is nothing to install.
 | Tool | Job |
 | --- | --- |
 | `html2deck.py` | Presentation-safe HTML to a PPTX whose every element is a native, editable object |
-| `inspect_pptx.py` | A PPTX to an NDJSON object inventory, including any rasterized region |
+| `inspect_pptx.py` | A PPTX to an NDJSON object inventory: geometry, color, type, text, background, and any rasterized region |
+| `diff_specimens.py` | Two inventories to a graded delta report and a design verdict that content cannot sway |
 
 ```bash
 python3 tools/html2deck.py deck.html deck.pptx
 python3 tools/inspect_pptx.py deck.pptx > deck.inspect.ndjson
+python3 tools/diff_specimens.py a.pptx b.pptx
 ```
+
+## Comparing specimens
+
+`diff_specimens.py` pairs the objects of two inventories and grades every difference: color
+perceptually (OKLab, with the delta printed even when it sits far below what a viewer could call
+out), geometry to the pixel, type by size and family. Text differences are reported separately and
+never sway the design verdict, because two specimens carrying different words on one layout are the
+same design.
+
+Both failure directions are exit codes. `--expect-same` fails on visible design deltas (a
+regression check). `--expect-distinct` fails when two supposedly distinct identities produced one
+design (the convergence check behind the harness's anti-convergence hard gate).
 
 ## What the converter guarantees
 

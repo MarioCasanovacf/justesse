@@ -107,6 +107,9 @@ Load only what the active mode needs; every reference is directly linked here.
   image concept is the selected mode.
 - Read [style-lenses.md](references/style-lenses.md) when the brief lacks a visual vocabulary or
   competing directions need to be separated.
+- Read [finishing.md](references/finishing.md) last, and only once the interface-quality checks
+  hold, for delivery-grade refinement and for judging near-identical candidates; finishing never
+  substitutes for hierarchy, veracity, or states.
 - Read [react-next-tailwind.md](references/react-next-tailwind.md) only when the inspected project
   already uses React, Next.js, or Tailwind, or the user explicitly authorizes that stack for
   greenfield work; it is not the portable default.
