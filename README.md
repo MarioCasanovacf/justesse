@@ -19,6 +19,7 @@ The skill routes work by design problem rather than by software stack:
 - product UI, dashboards, and transactional flows
 - preserve-mode and overhaul-mode redesigns
 - reference-to-code work and visual review
+- documentation, guides, and other reading surfaces
 - data visualization and numerical composition
 - image concepts
 - executive decision memos and editable presentation files
@@ -123,8 +124,13 @@ the result remains the final calibration input.
 
 ## Provenance and license
 
-This work is inspired by
+This work is inspired by two pinned upstreams, each rewritten as original stack-neutral prose:
 [`Leonxlnx/taste-skill`](https://github.com/Leonxlnx/taste-skill) at commit
-`b17742737e796305d829b3ad39eda3add0d79060`. The complete upstream MIT notice is preserved at
-[`skill/justesse/LICENSE.upstream`](skill/justesse/LICENSE.upstream).
+`b17742737e796305d829b3ad39eda3add0d79060` (MIT, preserved at
+[`skill/justesse/LICENSE.upstream`](skill/justesse/LICENSE.upstream)), and
+[`pbakaus/impeccable`](https://github.com/pbakaus/impeccable) at commit
+`c8f476b330395031bc8f7a7aee8d848bc85c81e4` (Apache-2.0, preserved at
+[`skill/justesse/LICENSE.upstream-impeccable`](skill/justesse/LICENSE.upstream-impeccable)).
+What each one contributed, and what was deliberately not inherited, is recorded in
+[`upstream-provenance.md`](skill/justesse/references/upstream-provenance.md).
 The adaptation in this repository is distributed under the MIT License.

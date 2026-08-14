@@ -151,6 +151,18 @@ check("silent flattening disclosed", "Disclose it; do not close the gap silently
 check("verify against the file", "Verify against the file, not against the HTML that produced it" in deck)
 check("converter is not the contract", "not part of this skill's contract" in deck)
 
+# Absorbed craft rules (impeccable tranche 1): deterministic presence checks. Promotion of these
+# rules through the blind A/B remains a calibration run, not an assertion.
+quality = " ".join((references / "interface-quality.md").read_text(encoding="utf-8").split())
+reading = " ".join((references / "reading-surfaces.md").read_text(encoding="utf-8").split())
+check("bounded verification in workflow", "Render and verify in bounded passes" in skill_text)
+check("verification has a hard stop", "at most one more round" in " ".join(skill_text.split()))
+check("built-result checks present", "Verify on the render" in quality)
+check("browser surfaces themed", "The surfaces you did not draw still carry the design" in quality)
+check("unearned defaults stay earnable", "the brief's own words can earn any of them" in quality)
+check("reading mode linked", "reading-surfaces.md" in linked)
+check("reading mode is comprehension-first", "Structure for comprehension first" in reading)
+
 calibration = texts["profile-calibration.md"]
 check("three controlled variants", all(label in calibration for label in ("baseline A", "candidate B", "B-no-flag")))
 check("identical frozen inputs", "Freeze one fixture" in calibration)

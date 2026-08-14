@@ -29,6 +29,7 @@ controls the workflow and acceptance bar.
 | Redesign: overhaul | Establish a new visual language while retaining unapproved-to-change contracts | [redesign-preservation.md](references/redesign-preservation.md) |
 | Reference to code | Translate supplied visual evidence into the target project's native implementation | [reference-to-code.md](references/reference-to-code.md) |
 | Visual review | Diagnose hierarchy, coherence, usability, responsiveness, and production risk | [interface-quality.md](references/interface-quality.md) |
+| Reading / documentation | Help a reader understand something through docs, guides, articles, help, or changelogs | [reading-surfaces.md](references/reading-surfaces.md) |
 | Image concept | Define or produce art direction that serves the interface | [image-concepts.md](references/image-concepts.md) |
 | Data visualization | Turn measures, comparisons, distributions, relationships, and uncertainty into inspectable evidence | [data-visualization.md](references/data-visualization.md) |
 | Executive decision memo | Turn bounded evidence into a conclusion-led presentation for a decision-maker | [decision-memo.md](references/decision-memo.md) |
@@ -68,10 +69,14 @@ returns a mood where the form needs a measurement.
 6. **Resolve the whole state space.** Design responsive layout plus applicable loading, empty,
    partial, error, success, disabled, permission, offline, validation, and destructive-action
    states. For dashboards and flows, protect data legibility, task continuity, and recovery.
-7. **Render and iterate.** Inspect representative narrow and wide viewports and real content
-   extremes when preview tooling exists. Compare hierarchy, reading order, overflow, contrast,
-   focus, interaction feedback, and contract preservation. Do not call a mockup production-ready
-   without proportionate build, test, and visual evidence.
+7. **Render and verify in bounded passes.** Build fully first. Then inspect representative narrow
+   and wide viewports and real content extremes together in one batched round when preview tooling
+   exists, comparing hierarchy, reading order, overflow, contrast, focus, interaction feedback,
+   and contract preservation. Fix everything that round shows in one batch, confirm with at most
+   one more round, and stop polishing: an open-ended self-QA loop spends the budget without
+   converging, and the bound covers the whole cycle, screenshots, defect scans, micro-edits, and
+   rebuilds alike. Do not call a mockup production-ready without proportionate build, test, and
+   visual evidence.
 8. **Preflight delivery.** Read [production-preflight.md](references/production-preflight.md), fix
    applicable failures, cross-check every requested deliverable, and report checks that could not
    run.
@@ -85,6 +90,8 @@ Load only what the active mode needs; every reference is directly linked here.
   [production-preflight.md](references/production-preflight.md).
 - Read [marketing-surfaces.md](references/marketing-surfaces.md) for marketing, campaign,
   editorial-conversion, pricing, launch, or other acquisition surfaces.
+- Read [reading-surfaces.md](references/reading-surfaces.md) for documentation, guides, articles,
+  help, changelogs, and long-form pages whose job is comprehension.
 - Read [product-and-transaction.md](references/product-and-transaction.md) for application UI,
   dashboards, data-dense workspaces, forms, checkout, onboarding, settings, and multi-step flows.
 - Read [data-visualization.md](references/data-visualization.md) whenever a surface contains a KPI,

@@ -18,6 +18,7 @@ REFERENCE_NAMES = {
     "motion-patterns.md",
     "react-next-tailwind.md",
     "production-preflight.md",
+    "reading-surfaces.md",
     "upstream-provenance.md",
     "profile-activation.md",
     "profile-declaration.md",
@@ -30,10 +31,13 @@ REFERENCE_NAMES = {
 EXPECTED_FILES = {
     "SKILL.md",
     "LICENSE.upstream",
+    "LICENSE.upstream-impeccable",
     *(f"references/{name}" for name in REFERENCE_NAMES),
 }
 UPSTREAM_URL = "https://github.com/Leonxlnx/taste-skill"
 UPSTREAM_COMMIT = "b17742737e796305d829b3ad39eda3add0d79060"
+IMPECCABLE_URL = "https://github.com/pbakaus/impeccable"
+IMPECCABLE_COMMIT = "c8f476b330395031bc8f7a7aee8d848bc85c81e4"
 UPSTREAM_LICENSE = """MIT License
 
 Copyright (c) 2026 Leonxlnx
@@ -152,6 +156,7 @@ class JustesseTests(unittest.TestCase):
             "Redesign: overhaul",
             "Reference to code",
             "Visual review",
+            "Reading / documentation",
             "Image concept",
             "do not silently switch modes",
         ):
@@ -406,6 +411,39 @@ class JustesseTests(unittest.TestCase):
             (SKILL / "LICENSE.upstream").read_text(encoding="utf-8"),
             UPSTREAM_LICENSE,
         )
+        self.assertIn(IMPECCABLE_URL, provenance)
+        self.assertIn(IMPECCABLE_COMMIT, provenance)
+        self.assertIn("License: Apache-2.0", provenance)
+        apache = (SKILL / "LICENSE.upstream-impeccable").read_text(encoding="utf-8")
+        self.assertIn("Apache License", apache)
+        self.assertIn("Version 2.0, January 2004", apache)
+        self.assertIn("Copyright 2025 Paul Bakaus", apache)
+
+    def test_absorbed_craft_rules_are_present_and_scoped(self):
+        """Tranche 1 of the impeccable absorption: distilled rules, original prose.
+
+        Deterministic assertions here; blind A/B promotion per profile-calibration.md
+        remains a separate specimen-producing run.
+        """
+        skill = normalized(SKILL / "SKILL.md")
+        quality = normalized(SKILL / "references" / "interface-quality.md")
+        reading = normalized(SKILL / "references" / "reading-surfaces.md")
+        # Bounded verification: batched rounds with a hard stop, not an open QA loop.
+        self.assertIn("Render and verify in bounded passes", skill)
+        self.assertIn("confirm with at most one more round", skill)
+        self.assertIn("spends the budget without converging", skill)
+        # Built-result checks, including the browser surfaces nobody draws.
+        self.assertIn("Verify on the render", quality)
+        self.assertIn("a check on the built result, not an intention", quality)
+        self.assertIn("The surfaces you did not draw still carry the design", quality)
+        # Unearned defaults stay defaults, never bans: the brief can earn them back.
+        self.assertIn("Unearned defaults", quality)
+        self.assertIn("not bans: the brief's own words can earn any of them", quality)
+        self.assertIn("ghost card", quality)
+        # Reading mode: comprehension first, chosen per surface.
+        self.assertIn("Structure for comprehension first", reading)
+        self.assertIn("Assume arrival mid-page", reading)
+        self.assertIn("not from the product", reading)
 
 
 if __name__ == "__main__":
