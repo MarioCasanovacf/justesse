@@ -11,13 +11,24 @@ Both use only the Python standard library. There is nothing to install.
 | --- | --- |
 | `html2deck.py` | Presentation-safe HTML to a PPTX whose every element is a native, editable object |
 | `inspect_pptx.py` | A PPTX to an NDJSON object inventory: geometry, color, type, text, background, and any rasterized region |
+| `inspect_html.mjs` | A rendered HTML surface to the same inventory shape, one slide per viewport |
 | `diff_specimens.py` | Two inventories to a graded delta report and a design verdict that content cannot sway |
 
 ```bash
 python3 tools/html2deck.py deck.html deck.pptx
 python3 tools/inspect_pptx.py deck.pptx > deck.inspect.ndjson
+node tools/inspect_html.mjs page.html --viewports 1440x1000,390x844 > page.inspect.ndjson
 python3 tools/diff_specimens.py a.pptx b.pptx
 ```
+
+`inspect_html.mjs` is the one tool with a runner-provided dependency: it needs the `playwright`
+package resolvable from the invoking directory plus an installed Chrome or Chromium (it prefers the
+system Chrome channel, so no browser download is required). It renders the page at each requested
+viewport and emits one "slide" per viewport, because a responsive surface at two widths is two
+compositions of one design. With that, `diff_specimens.py` covers every surface in the harness
+contract, not only decks, and the anti-convergence hard gate is executable across all of them. The
+Python test suite stays hermetic: it does not exercise this tool, and the harness treats browser
+capture as runner-provided evidence, same as renders and screenshots.
 
 ## Comparing specimens
 
