@@ -128,3 +128,18 @@ Largest empty band per slide fell from 126 px to 66 px, and on four of five slid
 the top margin under the header rule rather than a hole in the middle. Deck: 5 slides, **109**
 native objects (up from 81), 0 rasterized. The `finishing.md` rule was amended to lead with the
 operator's position rather than with the arrangement advice, under two further assertions.
+
+**Round 2f — same day — the preview stops pretending to be a document viewer.** With the slides
+themselves accepted, the remaining objection was the preview's own chrome: a system-colored page
+behind the canvas and a 24 px gutter between slides. Both were mine, introduced in 2c, and both were
+wrong for the same reason — they render the deck as pages in a viewer, which is a different artifact
+from the deck. A reviewer seeing a page frame, a margin, and a color behind the canvas starts
+judging a composition that will not exist anywhere the deck is opened.
+
+The page now carries the same canvas fill the slides declare, set on the `body` element where a
+value belongs, and slides sit flush. Measured: page background equals slide background exactly,
+gap between slides 0 px, document height 3600 px for five slides, which is 5 × 720 with nothing
+added. The deck is untouched — `diff_specimens.py --expect-same` against the pre-change file reports
+SAME DESIGN, delta-free, since the converter ignores both the stylesheet and any style on `body`.
+That last point is now its own test: the body carries a fill that appears nowhere in the converted
+inventory.

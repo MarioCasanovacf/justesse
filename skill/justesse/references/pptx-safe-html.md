@@ -51,17 +51,26 @@ the mechanics and nothing else:
 
 ```css
 * { box-sizing: border-box; }
-body { margin: 0; padding: 24px; background: ButtonFace; }
-.slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto 24px; }
+body { margin: 0; padding: 0; }
+.slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto; }
 .text, .rect, .ellipse, .line { position: absolute; margin: 0; padding: 0; }
 .ellipse { border-radius: 50%; }
 ```
 
 Geometry, never design. Every color, size, and typeface stays in the inline style where the
-converter can see it; the page backdrop is a CSS system color, which is application chrome rather
-than a declared value. A conforming converter parses inline styles only and ignores stylesheets
-entirely, so nothing written here can reach the presentation file. The preview cannot drift from the
-deck, and the block cannot become a place to hide a value the converter would have refused.
+converter can see it. A conforming converter parses the inline styles of the classed kinds only and
+ignores stylesheets entirely, so nothing written here can reach the presentation file. The preview
+cannot drift from the deck, and the block cannot become a place to hide a value the converter would
+have refused.
+
+Give the page itself the same canvas fill the slides declare, set on the `body` element where a
+value belongs, and leave no gutter between slides. A contrasting page color and a gap around each
+slide turn the preview into a document viewer showing pages, which is a different artifact from the
+one being authored: the deck has no page frame, no margin, and no color behind it, and a reviewer
+who sees one starts judging the wrong composition. Flush and same-colored, the only seam is the
+previous slide's footer meeting the next slide's header rule, which is how the deck reads anyway.
+The `body` element is never converted, so a style attribute on it is ignored exactly like the
+stylesheet.
 
 Then look at the slides before converting, and look at all of them. Text is measured by the font,
 not by the number the author estimated, so a title that was expected to fit can wrap to a second

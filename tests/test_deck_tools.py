@@ -116,13 +116,13 @@ PREVIEW_HEAD = """<!doctype html>
 <title>Deck</title>
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; padding: 24px; background: ButtonFace; }
-  .slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto 24px; }
+  body { margin: 0; padding: 0; }
+  .slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto; }
   .text, .rect, .ellipse, .line { position: absolute; margin: 0; padding: 0; }
   .ellipse { border-radius: 50%; }
 </style>
 </head>
-<body>
+<body style="background:#123456">
 """
 
 
@@ -140,6 +140,13 @@ class PreviewStylesheetTests(unittest.TestCase):
         _, plain = convert(DECK)
         _, previewed = convert(PREVIEW_HEAD + DECK + "</body></html>")
         self.assertEqual(plain, previewed)
+
+    def test_the_page_background_is_not_mistaken_for_a_slide(self):
+        """The body carries the canvas fill so nothing reads as backdrop; it converts to nothing."""
+        slides, records = convert(PREVIEW_HEAD + DECK + "</body></html>")
+        self.assertEqual(len(slides), 2)
+        self.assertEqual([slide.background for slide in slides], ["FAF8F2", None])
+        self.assertNotIn("#123456", "".join(str(record) for record in records))
 
     def test_the_stylesheet_is_not_a_way_around_the_subset(self):
         """Its rules name properties the converter refuses inline; it still refuses them inline."""
