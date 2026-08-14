@@ -109,6 +109,53 @@ class ConverterTests(unittest.TestCase):
         self.assertEqual(html2deck.CANVAS_WIDTH_PX * 9, html2deck.CANVAS_HEIGHT_PX * 16)
 
 
+PREVIEW_HEAD = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deck</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; background: ButtonFace; }
+  .slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto 24px; }
+  .text, .rect, .ellipse, .line { position: absolute; margin: 0; padding: 0; }
+  .ellipse { border-radius: 50%; }
+</style>
+</head>
+<body>
+"""
+
+
+class PreviewStylesheetTests(unittest.TestCase):
+    """The canvas preview block is geometry for the browser and invisible to the converter.
+
+    Authoring HTML for a canvas the browser does not assume means the page renders as a stacked
+    column unless a stylesheet declares the fixed frame and the absolute boxes. That stylesheet has
+    to be inert on the way to the deck, in both directions: the author reviews a real slide, and no
+    one can move a declared value out of the inline style, where the subset is enforced, into a
+    stylesheet where it would render in the preview and quietly vanish from the presentation file.
+    """
+
+    def test_a_preview_stylesheet_does_not_change_the_converted_file(self):
+        _, plain = convert(DECK)
+        _, previewed = convert(PREVIEW_HEAD + DECK + "</body></html>")
+        self.assertEqual(plain, previewed)
+
+    def test_the_stylesheet_is_not_a_way_around_the_subset(self):
+        """Its rules name properties the converter refuses inline; it still refuses them inline."""
+        hidden = PREVIEW_HEAD.replace(
+            ".ellipse { border-radius: 50%; }", ".ellipse { border-radius: 50%; background: #00FF00; }"
+        )
+        _, records = convert(hidden + DECK + "</body></html>")
+        dot = next(record for record in records if record.get("name") == "dot")
+        self.assertEqual(dot["color"], "#B00020")
+        with self.assertRaises(html2deck.UnsupportedConstruct):
+            html2deck.parse_html(
+                '<div class="slide"><div class="rect" data-name="x" '
+                'style="left:0px;top:0px;width:10px;height:10px;position:absolute"></div></div>'
+            )
+
+
 class RejectionTests(unittest.TestCase):
     """Constructs outside the subset must fail at authoring time, never flatten silently."""
 

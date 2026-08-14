@@ -69,3 +69,24 @@ landing, and case-study report all report **SAME DESIGN, delta-free**. The emitt
 mechanical projection of the declaration; the transcription step, where drift used to live, is
 gone. The deck path keeps literal values by design (the presentation-safe subset resolves
 everything at authoring time) and was not part of this check.
+
+**Round 2c — same day — deck preview, and what it caught.** The deck's authoring HTML carried no
+stylesheet, so opening it in a browser stacked all 81 objects in document flow: measured, the slide
+box came back 1344 × 385 px instead of 1280 × 720 and every object computed `position: static`. The
+deck was correct; the preview had never existed. Adding the canvas preview block (now specified in
+`references/pptx-safe-html.md`, with `tests/test_deck_tools.py` asserting the converter ignores
+stylesheets in both directions) left the converted file byte-identical in inventory —
+`diff_specimens.py --expect-same`: SAME DESIGN, delta-free.
+
+Being able to see the slides then found two defects: `title-3` wrapped past its declared 60 px box
+and collided with `body-3`, and `review-number` overflowed by 6 px. Both were in the presentation
+file too, since a text box overflows rather than shrinks. Fixed as geometry only — title-3 height
+60→92, body-3 top 196→228, review-number height 70→76 — with no copy touched; the deck, its
+inventory, and all five renders were regenerated at 5 slides, 81 native objects, 0 rasterized.
+
+The honest part: the round-1 collision was visible in `renders/slide-3.png` all along. The bounded
+verification round rendered every slide and the reviewer still missed it, so the failure was
+attention, not instrumentation — and the fix that holds is the deterministic one. Reviewing text
+boxes for overflow past their declared height, and for collision after wrapping, is a measurement a
+browser can make and a rule can require; it is not yet an executable gate. That is the next
+instrument, and it is named here so the gap is on the record rather than in someone's memory.

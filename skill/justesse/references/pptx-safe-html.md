@@ -41,6 +41,34 @@ every label is a text box anchored to the mark it describes. A chart built this 
 of objects the recipient can recolor, renumber, and realign one at a time, which is more editable
 than a single chart object and far more editable than a picture.
 
+## Previewing the canvas
+
+This subset is written for a canvas the browser does not assume. The geometry lives in the inline
+styles the converter reads, but a browser also has to be told that those boxes are absolute and that
+a slide is a fixed frame. Told nothing, it stacks every object in document flow, and the author
+reviews a column of fragments instead of a slide. Put one stylesheet in the document head, carrying
+the mechanics and nothing else:
+
+```css
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px; background: ButtonFace; }
+.slide { position: relative; width: 1280px; height: 720px; overflow: hidden; margin: 0 auto 24px; }
+.text, .rect, .ellipse, .line { position: absolute; margin: 0; padding: 0; }
+.ellipse { border-radius: 50%; }
+```
+
+Geometry, never design. Every color, size, and typeface stays in the inline style where the
+converter can see it; the page backdrop is a CSS system color, which is application chrome rather
+than a declared value. A conforming converter parses inline styles only and ignores stylesheets
+entirely, so nothing written here can reach the presentation file. The preview cannot drift from the
+deck, and the block cannot become a place to hide a value the converter would have refused.
+
+Then look at the slides before converting, and look at all of them. Text is measured by the font,
+not by the number the author estimated, so a title that was expected to fit can wrap to a second
+line and land on the paragraph beneath it. That collision is in the presentation file too: a text
+box overflows its declared height rather than shrinking to fit. Reviewing only the first slide is
+how it survives to the recipient.
+
 ## What does not convert
 
 These constructs have no representation as a native object. Each one forces the whole region that
