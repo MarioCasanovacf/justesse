@@ -110,3 +110,21 @@ This round is the human gate doing its job. The automated gates all passed on a 
 composition defect in three of five slides, because no gate measures whether space was assigned or
 merely left over. That is the argument for keeping a human in the rubric, and the reason the round
 2 verdict still reads *provisional*.
+
+**Round 2e — same day — the operator rejects the premise.** Shown the recomposed deck, the operator
+answered that the arrangement was not the point: empty space on the canvas is itself unpleasant to
+him. That is a stronger position than the rule 2d had just written, and it is the better one. The
+prior question is not how to distribute a void but what evidence should have been occupying it.
+
+Refilled from the frozen fixture only, no invented content: `situation` gained the sample's
+composition — the 1,165 / 972 / 123 / 70 totals with their 83.4 / 10.6 / 6.0 shares and a
+proportional stacked bar; `decision` gained the scope of the recommendation, 40 of 70 negative items
+in cycle against 30 deferred, each side naming its drivers; `risk` traded a standalone figure for an
+observed-window-and-review-point timeline, 8 weeks measured against 6 weeks to 2026-W28. Every value
+was already true in `fixture.json` before the layout needed it, which is the line between filling
+and padding. Semantic color held: garnet stays on negative evidence, ink carries the decision.
+
+Largest empty band per slide fell from 126 px to 66 px, and on four of five slides that band is now
+the top margin under the header rule rather than a hole in the middle. Deck: 5 slides, **109**
+native objects (up from 81), 0 rasterized. The `finishing.md` rule was amended to lead with the
+operator's position rather than with the arrangement advice, under two further assertions.

@@ -46,6 +46,15 @@ anchored masses, which composes, rather than several similar voids, which drift.
 this is easy to check numerically: measure each surface's top gap and bottom gap, and treat a
 sparse surface whose empty space collects at one end as unfinished.
 
+Ask the prior question first, though. When a canvas keeps coming up empty, the fix is usually not a
+better arrangement of the space but the evidence that should have been on it. A slide that states a
+total has room to show that total's composition; one that recommends a scope has room to show what
+the scope leaves out. Space earned by information is read as confidence, and space left over is
+read as an unfinished draft — a distinction most viewers feel immediately and describe only as not
+liking it. Filling a canvas from evidence already in hand is not decoration. Inventing content to
+fill it is, and the line between them is whether the values were already true before the layout
+needed them.
+
 ## Letterforms at small sizes
 
 - Letterspace runs of capitals and small capitals slightly; their forms were drawn to stand apart.
