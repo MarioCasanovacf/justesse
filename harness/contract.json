@@ -1,0 +1,121 @@
+{
+  "benchmark_id": "justesse-profile-ab-v1",
+  "fixture": "fixture.json",
+  "activation": {
+    "flag": "personal:<name>",
+    "ships_bundled_profile": false,
+    "enabled_scope": [
+      "artifacts the flagged profile owner authored or authorized",
+      "personal presentations made by or about the declared profile owner",
+      "personal case studies, reports, and authored pages explicitly marked as that owner's work"
+    ],
+    "default_without_flag": "brand-neutral; do not import any profile's typography, palette, materiality, voice, or exclusions",
+    "declaration_required": true,
+    "declaration_fields": [
+      "identity",
+      "canvas",
+      "type_roles",
+      "semantic_color",
+      "action_treatment",
+      "geometry",
+      "voice",
+      "exclusions",
+      "posture",
+      "evidence"
+    ],
+    "negative_control_required": true
+  },
+  "variants": {
+    "A": {
+      "source": "prior Taste skill and existing demo-showcase",
+      "profile": "none",
+      "output_dir": "variant-a"
+    },
+    "B": {
+      "source": "revised Justesse skill",
+      "profile": "personal:<name>",
+      "declaration": "required and complete before any design decision",
+      "output_dir": "variant-b"
+    },
+    "B_no_flag": {
+      "source": "same revised Justesse skill",
+      "profile": "none",
+      "output_dir": "variant-b-no-flag"
+    }
+  },
+  "control": {
+    "identical_inputs": ["fixture", "claims", "surface brief", "viewport", "visible copy language"],
+    "blind_labels": ["specimen-1", "specimen-2"],
+    "reveal_only_after_scoring": true,
+    "required_provenance": ["prompt", "skill path", "skill hash", "profile flag", "declaration record and hash", "assumptions", "render command", "QA command"]
+  },
+  "semantic_map": {
+    "positive_success": {"source": "declaration.semantic_color.positive", "redundancy": ["direct label", "upward or affirmative marker"]},
+    "warning": {"source": "declaration.semantic_color.warning", "redundancy": ["direct label", "warning marker or annotation"]},
+    "negative_critical": {"source": "declaration.semantic_color.negative", "redundancy": ["direct label", "downward or critical marker"]},
+    "neutral": {"source": "declaration.semantic_color.neutral", "redundancy": ["direct label", "distinct position, pattern, or line style"]},
+    "structure_reference_total": {"source": "declaration.semantic_color.structure", "redundancy": ["axis, rule, total, baseline, or reference mark", "direct reference or total label"]}
+  },
+  "surface_briefs": {
+    "dashboard": {
+      "job": "Reveal overall state, change, exception, and next action within five seconds.",
+      "format": "responsive HTML",
+      "viewports": ["1440x1000", "390x844"],
+      "requirements": ["period", "units", "freshness", "direct labels", "weekly comparison", "negative drivers", "one explicit next action"]
+    },
+    "decision_memo": {
+      "job": "Help an executive decide whether to prioritize billing clarity and response time.",
+      "format": "five-slide PPTX plus full-size PNG renders",
+      "slide_size": {"aspect_ratio": "16:9", "width_inches": 13.333, "height_inches": 7.5},
+      "canvas_pixels": {"width": 1280, "height": 720},
+      "render_size_pixels": {"width": 1600, "height": 900},
+      "slides": ["situation", "evidence", "implication", "decision", "risk and next step"],
+      "requirements": ["one claim per slide", "takeaway titles", "one primary chromatic emphasis per slide", "direct chart annotation", "no miniature dashboard", "every element a native editable object", "no rasterized region"]
+    },
+    "personal_landing": {
+      "job": "Present Subscriber Feedback as evidence of the author's analytical practice, not as a fictional SaaS product.",
+      "format": "responsive HTML",
+      "viewports": ["1440x1000", "390x844"],
+      "requirements": ["author identity", "method statement", "bounded evidence", "one primary action", "no fabricated clients, testimonials, or conversion claims"]
+    },
+    "case_study_report": {
+      "job": "Explain question, data, method, findings, limits, and decision as a monographic case study.",
+      "format": "responsive HTML",
+      "viewports": ["1440x1000", "390x844"],
+      "requirements": ["question", "data", "method", "findings", "limits", "decision", "captions with unit and source", "wide evidence figure"]
+    }
+  },
+  "profile_invariants_when_flagged": [
+    "Every visual and verbal choice traces to a field of the completed declaration.",
+    "No field is populated by inference, by another profile, or by this repository's own examples and fixtures.",
+    "The five declared semantic values keep one stable meaning across all four surfaces.",
+    "The declared action treatment never collides with a declared status value on the same surface.",
+    "Declared exclusions are honored without exception.",
+    "Type roles resolve to declared families or to documented substitutions, never to silently fetched fonts.",
+    "Charts and diagrams function as evidence; color is scarce and carries stable meaning."
+  ],
+  "hard_gates": [
+    "Fixture is disclosed as synthetic and no unsupported fact or causal claim is added.",
+    "Positive, neutral, and negative remain perceptually distinct and use non-color redundancy.",
+    "Semantic mappings remain stable across all four surfaces.",
+    "Flagged B resolves every profile choice from a complete declaration and invents none.",
+    "B without the activation flag remains brand-neutral and does not leak profile identity.",
+    "Responsive renders and all five slides avoid clipping, overflow, and illegible contrast.",
+    "Every requested surface, provenance record, render, and QA result exists."
+  ],
+  "automated_promotion": {
+    "all_hard_gates_required": true,
+    "minimum_total_improvement_points": 15,
+    "surface_regressions_allowed": 0
+  },
+  "rubric_weights": {
+    "structural_profile_fidelity": 25,
+    "semantic_data_communication": 20,
+    "surface_translation": 15,
+    "veracity_and_narrative_rigor": 15,
+    "hierarchy_and_legibility": 10,
+    "accessibility_and_perception": 10,
+    "production_quality": 5
+  },
+  "human_gate": "The profile owner marks dashboard, decision memo, personal landing, and case-study report as: I would publish this as mine."
+}

@@ -1,0 +1,310 @@
+#!/usr/bin/env python3
+"""Gate for a `personal:<name>` profile declaration.
+
+This skill ships no profile. Activating the flag opens the ten-field declaration defined in
+`skill/justesse/references/profile-declaration.md`; this validator decides whether a declaration is
+complete and concrete enough to design against. It is deliberately dependency-free.
+
+Usage:
+
+    python3 harness/validate_profile.py path/to/declaration.json
+
+Exit status is 0 only when every required field holds a concrete value. What this enforces is
+completeness and concreteness. It cannot detect a value borrowed from another profile or from a
+published artifact; that remains a review gate, stated in the reference.
+"""
+
+import json
+import re
+import sys
+from pathlib import Path
+
+
+HEX = re.compile(r"\A#[0-9A-Fa-f]{6}\Z")
+AVAILABILITY = {"installed", "licensed", "substitute-required"}
+TYPE_ROLES = ("display", "prose", "ui", "data")
+SEMANTIC_ROLES = ("positive", "warning", "negative", "neutral", "structure")
+REQUIRED_FIELDS = (
+    "identity",
+    "canvas",
+    "type_roles",
+    "semantic_color",
+    "action_treatment",
+    "geometry",
+    "voice",
+    "exclusions",
+    "posture",
+    "evidence",
+)
+
+# Answers that look filled in but decide nothing. Matched against the whole normalized string.
+NON_ANSWERS = {
+    "",
+    "-",
+    "--",
+    "?",
+    "??",
+    "n/a",
+    "na",
+    "none",
+    "null",
+    "nil",
+    "tbd",
+    "tba",
+    "todo",
+    "to be defined",
+    "to be determined",
+    "pending",
+    "placeholder",
+    "example",
+    "default",
+    "the default",
+    "standard",
+    "the usual",
+    "usual",
+    "same",
+    "same as before",
+    "same as last time",
+    "unchanged",
+    "you decide",
+    "your call",
+    "your choice",
+    "up to you",
+    "use your judgment",
+    "use your judgement",
+    "whatever",
+    "whatever fits",
+    "whatever you think",
+    "anything",
+    "any",
+    "idk",
+    "i don't know",
+    "dunno",
+    "unknown",
+    "xxx",
+    "xx",
+    "lorem ipsum",
+}
+# Deferrals that can hide inside a longer sentence.
+NON_ANSWER_SUBSTRINGS = (
+    "you decide",
+    "up to you",
+    "use your judgment",
+    "use your judgement",
+    "same as the",
+    "same as our",
+    "like the other",
+    "to be defined",
+    "to be determined",
+    "tbd",
+)
+
+failures: list[str] = []
+
+
+def fail(field: str, reason: str) -> None:
+    failures.append(f"{field}: {reason}")
+
+
+def normalized(value: str) -> str:
+    return " ".join(value.split()).strip().casefold()
+
+
+def concrete(field: str, value, *, min_words: int = 1) -> bool:
+    """A string answer that can be applied without a second interpretation."""
+    if not isinstance(value, str):
+        fail(field, f"expected text, got {type(value).__name__}")
+        return False
+    text = normalized(value)
+    if text in NON_ANSWERS:
+        fail(field, f"non-answer {value!r}; re-ask this field")
+        return False
+    for marker in NON_ANSWER_SUBSTRINGS:
+        if marker in text:
+            fail(field, f"deferral {value!r}; re-ask this field")
+            return False
+    if len(text.split()) < min_words:
+        fail(field, f"underdetermined {value!r}; needs at least {min_words} word(s)")
+        return False
+    return True
+
+
+def hex_color(field: str, value) -> bool:
+    if not isinstance(value, str) or not HEX.match(value.strip()):
+        fail(field, f"expected a #RRGGBB hex value, got {value!r}")
+        return False
+    return True
+
+
+def whole_number(field: str, value) -> bool:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        fail(field, f"expected a non-negative whole number of px, got {value!r}")
+        return False
+    return True
+
+
+def mapping(field: str, value) -> bool:
+    if not isinstance(value, dict):
+        fail(field, f"expected an object, got {type(value).__name__}")
+        return False
+    return True
+
+
+def string_list(field: str, value, minimum: int) -> bool:
+    if not isinstance(value, list):
+        fail(field, f"expected a list, got {type(value).__name__}")
+        return False
+    if len(value) < minimum:
+        fail(field, f"needs at least {minimum} entries, got {len(value)}")
+        return False
+    ok = True
+    for index, item in enumerate(value):
+        if not concrete(f"{field}[{index}]", item):
+            ok = False
+    return ok
+
+
+def check_identity(value) -> None:
+    if not mapping("identity", value):
+        return
+    concrete("identity.name", value.get("name"))
+    concrete("identity.owner", value.get("owner"))
+    concrete("identity.purpose", value.get("purpose"), min_words=4)
+    string_list("identity.scope", value.get("scope"), 1)
+
+
+def check_canvas(value) -> None:
+    if not mapping("canvas", value):
+        return
+    hex_color("canvas.surface", value.get("surface"))
+    hex_color("canvas.ink", value.get("ink"))
+    if "dark_variant" not in value:
+        fail("canvas.dark_variant", "required; state the two hex values or null for none")
+        return
+    dark = value["dark_variant"]
+    if dark is None:
+        return
+    if mapping("canvas.dark_variant", dark):
+        hex_color("canvas.dark_variant.surface", dark.get("surface"))
+        hex_color("canvas.dark_variant.ink", dark.get("ink"))
+
+
+def check_type_roles(value) -> None:
+    if not mapping("type_roles", value):
+        return
+    for role in TYPE_ROLES:
+        if role not in value:
+            fail(f"type_roles.{role}", "required role is undeclared")
+            continue
+        entry = value[role]
+        if not mapping(f"type_roles.{role}", entry):
+            continue
+        concrete(f"type_roles.{role}.family", entry.get("family"))
+        concrete(f"type_roles.{role}.fallback", entry.get("fallback"))
+        availability = entry.get("availability")
+        if availability not in AVAILABILITY:
+            fail(
+                f"type_roles.{role}.availability",
+                f"expected one of {sorted(AVAILABILITY)}, got {availability!r}",
+            )
+
+
+def check_semantic_color(value) -> None:
+    if not mapping("semantic_color", value):
+        return
+    for role in SEMANTIC_ROLES:
+        if role not in value:
+            fail(f"semantic_color.{role}", "required role is undeclared")
+            continue
+        entry = value[role]
+        if not mapping(f"semantic_color.{role}", entry):
+            continue
+        hex_color(f"semantic_color.{role}.hex", entry.get("hex"))
+        string_list(f"semantic_color.{role}.redundancy", entry.get("redundancy"), 1)
+
+
+def check_geometry(value) -> None:
+    if not mapping("geometry", value):
+        return
+    whole_number("geometry.corner_radius_px", value.get("corner_radius_px"))
+    whole_number("geometry.hairline_px", value.get("hairline_px"))
+    whole_number("geometry.emphasis_rule_px", value.get("emphasis_rule_px"))
+    whole_number("geometry.spacing_base_px", value.get("spacing_base_px"))
+    concrete("geometry.elevation", value.get("elevation"))
+
+
+def check_voice(value) -> None:
+    if not mapping("voice", value):
+        return
+    concrete("voice.person", value.get("person"))
+    concrete("voice.heading_case", value.get("heading_case"))
+    register = value.get("register")
+    if string_list("voice.register", register, 3) and len(register) != 3:
+        fail("voice.register", f"expected exactly 3 adjectives, got {len(register)}")
+    string_list("voice.refuses", value.get("refuses"), 1)
+
+
+def check_posture(value) -> None:
+    if not mapping("posture", value):
+        return
+    concrete("posture.density", value.get("density"))
+    concrete("posture.motion", value.get("motion"))
+
+
+def check_evidence(value) -> None:
+    if not mapping("evidence", value):
+        return
+    for key in ("unit", "period", "source", "uncertainty"):
+        concrete(f"evidence.{key}", value.get(key))
+
+
+def validate(declaration) -> list[str]:
+    """Return the list of failures for one declaration object."""
+    failures.clear()
+    if not isinstance(declaration, dict):
+        return [f"declaration: expected a JSON object, got {type(declaration).__name__}"]
+    for field in REQUIRED_FIELDS:
+        if field not in declaration:
+            fail(field, "required field is undeclared")
+    check_identity(declaration.get("identity"))
+    check_canvas(declaration.get("canvas"))
+    check_type_roles(declaration.get("type_roles"))
+    check_semantic_color(declaration.get("semantic_color"))
+    concrete("action_treatment", declaration.get("action_treatment"), min_words=4)
+    check_geometry(declaration.get("geometry"))
+    check_voice(declaration.get("voice"))
+    string_list("exclusions", declaration.get("exclusions"), 5)
+    check_posture(declaration.get("posture"))
+    check_evidence(declaration.get("evidence"))
+    return list(failures)
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 2:
+        print(__doc__.strip())
+        return 2
+    path = Path(argv[1])
+    if not path.is_file():
+        print(f"FAIL: no declaration at {path}")
+        return 1
+    try:
+        declaration = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        print(f"FAIL: {path} is not valid JSON: {error}")
+        return 1
+    problems = validate(declaration)
+    if problems:
+        for problem in problems:
+            print(f"FAIL: {problem}")
+        print(
+            f"\nBLOCKED: {len(problems)} field(s) are undeclared or non-concrete. "
+            "Re-ask only these, then re-run. Do not begin design work."
+        )
+        return 1
+    name = declaration["identity"]["name"]
+    print(f"PASS: declaration for personal:{name} is complete across all 10 fields")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

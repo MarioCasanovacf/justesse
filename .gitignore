@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+
+# Archived calibration output from the retired bundled profile. These directories hold a specific
+# person's palette, type stack, and voice in full, which is exactly what this repository no longer
+# ships. Keep them local; a profile belongs in its owner's declaration, not in a public tree.
+harness/specimens/
+harness/artifact-checks/

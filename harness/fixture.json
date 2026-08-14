@@ -1,0 +1,114 @@
+{
+  "fixture_id": "subscriber-feedback-v1",
+  "status": "synthetic_benchmark_data",
+  "disclosure": "Synthetic data created only for the Justesse calibration benchmark; never present it as a real client or production result.",
+  "period": {
+    "start": "2026-W15",
+    "end": "2026-W22",
+    "unit": "ISO week",
+    "freshness_label": "Benchmark snapshot — frozen 2026-07-16"
+  },
+  "weekly_feedback": [
+    {"week": "2026-W15", "positive": 95, "neutral": 15, "negative": 10},
+    {"week": "2026-W16", "positive": 108, "neutral": 14, "negative": 10},
+    {"week": "2026-W17", "positive": 117, "neutral": 16, "negative": 9},
+    {"week": "2026-W18", "positive": 112, "neutral": 18, "negative": 12},
+    {"week": "2026-W19", "positive": 129, "neutral": 15, "negative": 8},
+    {"week": "2026-W20", "positive": 136, "neutral": 14, "negative": 7},
+    {"week": "2026-W21", "positive": 132, "neutral": 16, "negative": 8},
+    {"week": "2026-W22", "positive": 143, "neutral": 15, "negative": 6}
+  ],
+  "totals": {
+    "positive": 972,
+    "neutral": 123,
+    "negative": 70,
+    "all": 1165
+  },
+  "negative_feedback_drivers": [
+    {"driver": "Billing clarity", "count": 22},
+    {"driver": "Response time", "count": 18},
+    {"driver": "Missing feature", "count": 15},
+    {"driver": "Onboarding", "count": 9},
+    {"driver": "Other", "count": 6}
+  ],
+  "derived_claims_allowed": [
+    "Positive feedback represents 83.4% of the frozen sample.",
+    "Negative feedback fell from 10 in 2026-W15 to 6 in 2026-W22.",
+    "Billing clarity and response time account for 57.1% of negative feedback.",
+    "The last week contains 164 feedback items, the highest weekly volume in the fixture."
+  ],
+  "decision_question": "Should the next improvement cycle prioritize billing clarity and response time while preserving the current positive trajectory?",
+  "recommended_decision": "Prioritize billing clarity and response time as the next bounded improvement cycle, and monitor weekly negative-feedback counts without claiming causality from this descriptive fixture.",
+  "copy_payloads": {
+    "dashboard": {
+      "eyebrow": "Subscriber feedback — 2026-W15 to 2026-W22",
+      "title": "Positive feedback is rising while two frictions explain most negative responses.",
+      "lede": "The frozen sample contains 1,165 feedback items. Read color together with labels and marks; no status depends on hue alone.",
+      "trend_heading": "Weekly feedback by sentiment",
+      "drivers_heading": "What negative feedback is about",
+      "positive_label": "Positive — 972",
+      "neutral_label": "Neutral — 123",
+      "negative_label": "Negative — 70",
+      "action_label": "Next action — examine billing clarity and response time"
+    },
+    "decision_memo": {
+      "deck_title": "Subscriber feedback — decision memo",
+      "deck_subtitle": "Synthetic benchmark · 2026-W15 to 2026-W22",
+      "slides": [
+        {
+          "title": "Positive feedback is rising, but the remaining friction is concentrated.",
+          "body": "The frozen eight-week sample contains 1,165 feedback items; 83.4% are positive.",
+          "annotation": "Decision required — choose the next bounded improvement cycle."
+        },
+        {
+          "title": "Negative feedback fell from 10 to 6 items per week.",
+          "body": "The direction is favorable, but this descriptive series does not establish causality.",
+          "annotation": "2026-W15 → 2026-W22"
+        },
+        {
+          "title": "Billing clarity and response time explain 57.1% of negative feedback.",
+          "body": "Together they account for 40 of the 70 negative items in the frozen sample.",
+          "annotation": "The issue is concentrated enough for a bounded intervention."
+        },
+        {
+          "title": "Prioritize billing clarity and response time in the next cycle.",
+          "body": "Treat the two drivers as a focused improvement scope while preserving the current positive trajectory.",
+          "annotation": "Recommended decision"
+        },
+        {
+          "title": "Measure weekly counts and do not overstate what changed them.",
+          "body": "Track positive, neutral, and negative items with stable semantics; review the two drivers after six additional weeks.",
+          "annotation": "Risk — descriptive evidence can guide priority, not prove cause."
+        }
+      ]
+    },
+    "personal_landing": {
+      "eyebrow": "Selected work — subscriber feedback",
+      "title": "I turn an ambiguous signal into a decision that can be examined.",
+      "lede": "This synthetic case demonstrates how I structure a question, test the evidence, separate description from causality, and make the next action explicit.",
+      "evidence_heading": "A bounded analytical example",
+      "evidence_body": "Across eight frozen weeks, positive feedback reaches 83.4%; billing clarity and response time account for 57.1% of negative items.",
+      "method_heading": "Method",
+      "method_body": "Define the period, preserve units, label uncertainty, and use color only when it carries a stable meaning.",
+      "action_label": "Read the case study"
+    },
+    "case_study_report": {
+      "eyebrow": "01 — Subscriber feedback",
+      "title": "Which friction deserves the next improvement cycle?",
+      "abstract": "A synthetic eight-week benchmark tests how descriptive feedback can support a bounded decision without pretending to prove causality.",
+      "question_heading": "Question",
+      "question_body": "Should the next cycle prioritize billing clarity and response time while preserving the current positive trajectory?",
+      "data_heading": "Data",
+      "data_body": "1,165 synthetic feedback items across 2026-W15 to 2026-W22, classified as positive, neutral, or negative.",
+      "method_heading": "Method",
+      "method_body": "Compare weekly sentiment counts, then inspect the distribution of negative-feedback drivers. Use direct labels and redundant marks so interpretation does not depend on color alone.",
+      "finding_heading": "Finding",
+      "finding_body": "Positive feedback represents 83.4% of the sample. Billing clarity and response time account for 57.1% of negative items.",
+      "limit_heading": "Limit",
+      "limit_body": "The fixture is descriptive and synthetic. It supports prioritization, not a causal claim or a real client result.",
+      "decision_heading": "Decision",
+      "decision_body": "Prioritize billing clarity and response time as the next bounded improvement cycle, then review six additional weeks of feedback."
+    }
+  },
+  "source_note": "Source: synthetic Subscriber Feedback benchmark fixture, frozen for A/B comparison."
+}
