@@ -316,3 +316,23 @@ Consequence, left to the operator rather than decided here: if the conditional r
 round-2 human gate is read as satisfied by this acceptance, the absorbed impeccable rules are
 promoted in full. If it is read as still waiting on an independent scorer, they stay provisional.
 Both readings are defensible from what is written above. The log does not choose.
+
+## Round 3, step 4 — an independent reviewer passed it, 2026-08-15
+
+A reviewer outside the round (Tafolla) gave the build a passing assessment. That reviewer neither
+declared the profile nor built the surface, which is the separation step 4 requires and the one
+thing every earlier entry recorded as missing.
+
+**Round 3 clears step 4.** With it, the condition attached to the round-2 human gate is satisfied on
+its own terms: the operator ratified the pieces contingent on round 3 passing its scoring, and it
+passed. **The absorbed impeccable rules are promoted in full and are no longer provisional.**
+
+One softness stays on the record rather than being rounded away. The assessment came as a passing
+judgment, not as a dimension-by-dimension rubric with printed per-criterion numbers, so round 3 has
+no score comparable to round 2's 65-versus-90. That limits what round 3 can be used for: it
+confirms the build holds up to a reviewer with no stake, and it does not produce a figure anyone can
+plot against another round. Nothing here needs that figure. It is worth knowing that it does not
+exist.
+
+**Status after this entry.** Rounds 2 and 3 both closed. Round 4 remains what it always was, an
+unscored distinctness probe. No round is left waiting on a person.
