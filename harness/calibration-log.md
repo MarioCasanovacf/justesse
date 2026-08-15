@@ -237,3 +237,42 @@ distinguishes on a slide where everything is negative. And the declared action t
 underlined label, never a filled box — forced a structural answer, since `text-decoration` is
 outside the converting subset: the underline is a 1 px line object beneath the label. The
 declaration reached the object inventory, not just the stylesheet.
+
+## Round 4 — a second identity, built because a human said the first one was a copy
+
+**Not a scored round.** No fixture, no rubric, no scorer, one surface. It is recorded here because
+of what set it off and what it found, not because it measures the skill.
+
+**What set it off.** Asked for a profile useful to a lawyer, the builder produced one and presented
+it as new. The human read it and answered: "no mames, está igualito al mío." He was right. The
+builder had rebuilt the LEON application's own palette — warm paper, warm near-black, oxblood,
+ochre — which is the same design idea as `personal:leon` in new coordinates. `diff_specimens.py`
+would have graded four of five color pairs as visible. The instrument compares values, not
+vocabularies, and the human caught what the instrument cannot. That limit is now written into
+`tools/README.md` next to the tool that has it.
+
+**What was built instead.** `personal:expediente` was distilled from the LEON application's stated
+requirements rather than from its stylesheet: local-first with no network at render time, five
+elements of analysis each carried by a literal extract and a cited article, ALTA priority only with
+all five confirmed, nothing effective until a human ratifies it. Pure white on pure black, a slab
+serif against a book serif, Courier on every verbatim extract so a quotation is typographically
+distinct from an inference, official blue / ochre / red, radius 0. The declared closing is a blank
+signature line, and the surface says in its own footer that it has no effect without one.
+
+**Measured.** Declaration gate PASS, 10 of 10. `diff_declarations.py` against `personal:leon`:
+**DISTINCT IDENTITIES**, 12 of 15 fixed signals differ. Against `personal:meridian`: 14 of 15.
+Rendered at 1440x1000 and 390x844 with the request log asserted: **no external requests at render
+time**, which is the one thing this declaration treats as a privacy requirement rather than a
+preference.
+
+**The builder violated its own declaration, and the declaration caught it.** The dashed rule marking
+`[REQUIERE INVESTIGACIÓN]` was implemented as a `repeating-linear-gradient`. The declaration excludes
+gradients. A gradient used to fake a dash is still a gradient; it was replaced with a dashed border.
+Nothing automated found this — the exclusions list did, on re-reading. Round 3 recorded the builder's
+recommendation failing its own instrument. This one records the builder's build failing its own
+declaration, which is the cheaper of the two failures only because someone re-read the list.
+
+**Also found, and reported outward.** The LEON application loads its typefaces from Google Fonts via
+`@import`. An evidence tool that describes itself as local-first makes a request to a third party
+every time a case sheet is opened. That is a defect in the application, not in this harness, and it
+is recorded here because the profile work is what surfaced it.
