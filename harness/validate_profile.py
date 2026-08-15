@@ -125,6 +125,9 @@ NON_ANSWER_SUBSTRINGS = (
     "como tu creas",
     "lo que veas",
     "lo que prefieras",
+    # A deferral that takes a qualifier and keeps deferring: "lo que sea mejor", "lo que sea
+    # más claro". Matching the exact phrase alone let every qualified form through.
+    "lo que sea",
     "el que quieras",
     "igual que el",
     "igual que la",
@@ -161,6 +164,7 @@ EXAMPLES = {
     "exclusions": '["gradients", "glow and glass", "automatic dark mode", "bounce motion", "stock photography of people"]',
     "posture.density": "balanced, one evidence module per fold",
     "posture.motion": "none beyond focus states",
+    "posture.closing": "three or four bounded paths with my lean stated and named as a lean, never a single next step",
     "evidence.unit": "stated on every axis and every displayed total",
     "evidence.period": "ISO week range, unbroken",
     "evidence.source": "named dataset and capture date in the caption",
@@ -337,6 +341,10 @@ def check_posture(value) -> None:
         return
     concrete("posture.density", value.get("density"))
     concrete("posture.motion", value.get("motion"))
+    # How the work closes is structural, not tone. A single recommendation and a set of paths with
+    # a stated lean produce different final surfaces from the same evidence, so the identity has to
+    # say which one it hands over.
+    concrete("posture.closing", value.get("closing"))
 
 
 def check_evidence(value) -> None:

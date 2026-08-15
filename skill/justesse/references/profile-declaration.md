@@ -33,7 +33,7 @@ this file has declared nothing.
 | 6 | Geometry | Corner radius in px, hairline and emphasis rule weights in px, elevation posture, and the spacing base unit in px. | radius `0`; hairline `1`; emphasis rule `3`; spacing base `8`; elevation "no shadow at any level, separation comes from rules and spacing" |
 | 7 | Voice | Grammatical person, heading letter case, register in three adjectives, and the constructions the profile refuses. | first person singular; sentence case; precise, restrained, impersonal; refuses exclamation marks, superlatives, brand-we |
 | 8 | Exclusions | At least five named visual or verbal effects the profile rejects outright. | gradients; glow and glass; automatic dark mode; spring and bounce motion; stock photography of people |
-| 9 | Posture | Density and motion, each chosen from a bounded set the requester states. | density "balanced, one evidence module per fold"; motion "none beyond focus states" |
+| 9 | Posture | Density, motion, and how the work closes, each chosen from a bounded set the requester states. | density "balanced, one evidence module per fold"; motion "none beyond focus states"; closing "three or four bounded paths with my lean stated and named as a lean, never a single next step" |
 | 10 | Evidence | What must accompany a displayed number: unit, period, source, and how uncertainty is shown. | unit on every axis and total; ISO week range, unbroken; named dataset and capture date in the caption; interval bands on every estimated series |
 
 ## Reject non-answers

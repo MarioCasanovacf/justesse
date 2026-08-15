@@ -58,7 +58,9 @@ returns a mood where the form needs a measurement.
    success signal. Enumerate every requested deliverable before implementation. Prefer one
    defensible interpretation over a collage of trends.
 3. **Declare the design read.** In one compact statement, name the mode, audience, product job,
-   visual direction, density, and motion posture. Distinguish decisions from assumptions.
+   visual direction, density, motion posture, and — where the work closes on a choice — whether it
+   hands over one recommendation or a set of bounded paths with a stated lean. Distinguish decisions
+   from assumptions.
 4. **Preserve the product contract.** Keep the existing framework, package manager, component
    conventions, design system, data and API contracts, state semantics, routes, forms, analytics,
    consent and legal behavior, accessibility, SEO, content meaning, tests, and performance budgets

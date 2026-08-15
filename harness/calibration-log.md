@@ -143,3 +143,37 @@ added. The deck is untouched — `diff_specimens.py --expect-same` against the p
 SAME DESIGN, delta-free, since the converter ignores both the stylesheet and any style on `body`.
 That last point is now its own test: the body carries a fill that appears nowhere in the converted
 inventory.
+
+## Round 2 human gate — 2026-08-14 — passed with one structural correction
+
+The operator marked the four pieces publishable, with a single change: he does not hand over a
+prescribed next step. He offers three or four bounded paths, states his lean, names it as a lean,
+and asks what he is missing — because a presentation is requirements gathering, not an
+announcement. The deck closed with "Recommended decision — adopt this scope" and "Next step",
+which is a different posture from his.
+
+**The mechanism was missing the field, not just the deck.** Nothing in the declaration said how an
+identity's work closes. Two profiles could match on every color, type role, geometry value and
+voice adjective and still hand over fundamentally different final surfaces, and the harness could
+not tell them apart or hold either one to its own habit — the same failure the anti-convergence
+gate exists to catch, one level up. `posture.closing` is now a required sub-field, in the form with
+a worked example, in the gate with `EXAMPLES` coverage, and under three tests asserting that either
+posture is a complete answer and that silence is not.
+
+Writing that test surfaced a real gap in the gate: `"lo que sea"` was matched only as an exact
+answer, so `"lo que sea mejor"` and every other qualified form passed. It is now a substring.
+A deferral that takes a modifier is still a deferral.
+
+The deck follows the declared posture. Slide 04 is four paths over the same 70 negative items —
+the two concentrated frictions (40, 57.1%), billing clarity alone (22, 31.4%), the top three (55,
+78.6%), and holding scope (0) — with the lean marked in the row and named as a lean in the
+annotation. Slide 05 carries the risk, the review window, and the open question: which constraint
+the data cannot see. No number left the fixture. Deck: 5 slides, **125** native objects, 0
+rasterized.
+
+**Verdict update.** The human gate is answered: the operator would publish these as his own. Rule
+promotion from round 2 is no longer provisional. The gate cost four corrections after every
+automated check had passed — a preview that never existed, a collision the reviewer's own eyes
+missed, space left over rather than assigned, and a closing posture the mechanism could not
+express. Each one is now a rule with an assertion behind it. That is the argument for the human
+gate stated as evidence rather than as principle.

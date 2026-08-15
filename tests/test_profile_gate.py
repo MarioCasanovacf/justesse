@@ -62,7 +62,11 @@ COMPLETE = {
         "spring and bounce motion",
         "stock photography of people",
     ],
-    "posture": {"density": "balanced, one evidence module per fold", "motion": "none beyond focus states"},
+    "posture": {
+        "density": "balanced, one evidence module per fold",
+        "motion": "none beyond focus states",
+        "closing": "a single recommendation stated once, with the alternatives it displaces named",
+    },
     "evidence": {
         "unit": "stated on every axis and every displayed total",
         "period": "ISO week range, unbroken",
@@ -109,6 +113,32 @@ class CompleteDeclarationTests(unittest.TestCase):
     def test_a_dark_variant_is_accepted_when_declared_concretely(self):
         declaration = replacing("canvas.dark_variant", {"surface": "#101010", "ink": "#F2F2F2"})
         self.assertEqual(validate_profile.validate(declaration), [])
+
+
+class ClosingPostureTests(unittest.TestCase):
+    """How the work closes is a declared structural choice, not a matter of tone.
+
+    A single recommendation and a set of bounded paths with a stated lean are built from the same
+    evidence and produce different final surfaces, so an identity that leaves it unsaid has left a
+    design decision to whoever happens to be building.
+    """
+
+    def test_the_closing_posture_is_required(self):
+        problems = validate_profile.validate(without("posture.closing"))
+        self.assertTrue(any(problem.startswith("posture.closing") for problem in problems))
+
+    def test_a_vague_closing_posture_is_refused_with_its_example(self):
+        problems = validate_profile.validate(replacing("posture.closing", "lo que sea mejor"))
+        self.assertTrue(any(problem.startswith("posture.closing") for problem in problems))
+        self.assertIn("posture.closing", validate_profile.EXAMPLES)
+
+    def test_either_posture_is_a_complete_answer(self):
+        for closing in (
+            "a single recommendation stated once, with the alternatives it displaces named",
+            "three or four bounded paths with my lean stated and named as a lean, never a single next step",
+        ):
+            with self.subTest(closing=closing):
+                self.assertEqual(validate_profile.validate(replacing("posture.closing", closing)), [])
 
 
 class MissingFieldTests(unittest.TestCase):
