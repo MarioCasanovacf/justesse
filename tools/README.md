@@ -15,6 +15,7 @@ Both use only the Python standard library. There is nothing to install.
 | `diff_specimens.py` | Two inventories to a graded delta report and a design verdict that content cannot sway |
 | `declaration2tokens.py` | A validated profile declaration to namespaced `--j-*` design tokens (CSS or JSON) |
 | `check_layout.mjs` | A presentation-safe deck to a list of measured layout failures: text past its box, text on text, objects off the canvas |
+| `diff_declarations.py` | Two profile declarations to a convergence verdict, before either one has been built |
 
 ```bash
 python3 tools/html2deck.py deck.html deck.pptx
@@ -58,6 +59,24 @@ identity declares, not a constant a tool knows.
 This exists because the failure it catches survived a full verification round: the collision was
 visible in a rendered slide, a reviewer looked at that slide, and the reviewer missed it. Attention
 does not scale across five slides and three revisions; measurement does.
+
+## Catching convergence one step earlier
+
+`diff_specimens.py` can only answer whether two identities produced the same design after both have
+been built. `diff_declarations.py` answers it from the declarations, which is where the cost sits:
+two declarations agreeing on canvas, type stack, and geometry will produce surfaces that agree, and
+learning that at the end costs four surfaces per identity.
+
+It grades only what a declaration fixes — canvas and semantic colors in OKLab, the four type roles
+by family, the four geometry values to the pixel — and reports voice, posture, and action treatment
+as text that never sways the verdict. A pair that agrees on every fixed value is one identity
+wearing two names, whatever its prose claims about register.
+
+Its limit is worth stating plainly, because a human found it first. The check compares values, not
+vocabularies. Two palettes can differ visibly on every pair and still be the same idea — warm paper,
+warm near-black, a dark red alarm, an amber caution — which reads to a person as the same design
+language in new coordinates. No instrument here detects that. It is one of the things the human
+gate is for.
 
 ## Comparing specimens
 
