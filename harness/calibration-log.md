@@ -293,3 +293,26 @@ procedural, not actual, and its declarant was fictional. Round 3 is the first ro
 declarant. Treating the round-2 gate as settled before round 3 is scored would promote the rules on
 the strength of the weaker of the two rounds, which is the direction the protocol exists to
 prevent.
+
+## Round 3, correction — the declarant did review the build, 2026-08-15
+
+The round-3 entry above states that no evaluation of the build exists. That is wrong, and the error
+is the recorder's. The declarant reviewed the deck when it was delivered and accepted it, saying it
+passed well. That review happened; leaving it out of the log understated what the round produced.
+
+Recorded for what it is: **the declarant's acceptance, not an independent score.** The declarant
+also declared the profile, so one person holds two of the three roles the protocol separates. That
+is the same class of limitation round 2 recorded about its own procedural blind, and naming it is
+the only reason the distinction is worth keeping.
+
+What it is worth. The declarant's acceptance answers the question no rubric can: whether the
+person the design was built for would put their name on it. It is the strongest single signal in
+the harness and the one thing every instrument here exists to serve.
+
+What it is not. It is not a dimension-by-dimension rubric score by someone with no stake in the
+declaration, which is what step 4 asks for and what would make round 3 comparable to round 2.
+
+Consequence, left to the operator rather than decided here: if the conditional ratification of the
+round-2 human gate is read as satisfied by this acceptance, the absorbed impeccable rules are
+promoted in full. If it is read as still waiting on an independent scorer, they stay provisional.
+Both readings are defensible from what is written above. The log does not choose.
