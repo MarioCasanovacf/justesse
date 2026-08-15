@@ -276,3 +276,20 @@ declaration, which is the cheaper of the two failures only because someone re-re
 `@import`. An evidence tool that describes itself as local-first makes a request to a third party
 every time a case sheet is opened. That is a defect in the application, not in this harness, and it
 is recorded here because the profile work is what surfaced it.
+
+## Human gate, round 2 — answered on condition, 2026-08-15
+
+The operator answered the round-2 human gate: **yes, he would publish the pieces as his own — on
+the condition that round 3 passes its scoring.** Recorded as a conditional ratification, not as a
+pass.
+
+What that changes: nothing yet. The absorbed impeccable rules stay provisional, exactly as the
+round-2 entry left them. What it does is convert an open question into a stated dependency. The
+gate no longer waits on a person's judgment; it waits on round 3 reaching step 4, which needs a
+scorer who did not build.
+
+Why the condition is worth honoring rather than rounding up to a pass. Round 2's blind was
+procedural, not actual, and its declarant was fictional. Round 3 is the first round with a real
+declarant. Treating the round-2 gate as settled before round 3 is scored would promote the rules on
+the strength of the weaker of the two rounds, which is the direction the protocol exists to
+prevent.
