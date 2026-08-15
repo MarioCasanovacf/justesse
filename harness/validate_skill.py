@@ -148,6 +148,10 @@ check("effects rejected", all(token in deck for token in ("box-shadow", "backdro
 check("generated content rejected", all(token in deck for token in ("::before", "::after", "iframes")))
 check("raster is the exception", "An image is the one element that is never manipulable" in deck)
 check("silent flattening disclosed", "Disclose it; do not close the gap silently" in deck)
+check("the canvas is previewable", "Previewing the canvas" in deck and "position: absolute" in deck)
+check("preview carries no design value", "Geometry, never design" in deck)
+check("preview shows no backdrop or gutter", "leave no gutter between slides" in deck)
+check("wrap failure is measured, not eyeballed", "should be measured" in deck and "only text against text is a" in deck)
 check("verify against the file", "Verify against the file, not against the HTML that produced it" in deck)
 check("converter is not the contract", "not part of this skill's contract" in deck)
 

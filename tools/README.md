@@ -14,11 +14,13 @@ Both use only the Python standard library. There is nothing to install.
 | `inspect_html.mjs` | A rendered HTML surface to the same inventory shape, one slide per viewport |
 | `diff_specimens.py` | Two inventories to a graded delta report and a design verdict that content cannot sway |
 | `declaration2tokens.py` | A validated profile declaration to namespaced `--j-*` design tokens (CSS or JSON) |
+| `check_layout.mjs` | A presentation-safe deck to a list of measured layout failures: text past its box, text on text, objects off the canvas |
 
 ```bash
 python3 tools/html2deck.py deck.html deck.pptx
 python3 tools/inspect_pptx.py deck.pptx > deck.inspect.ndjson
 node tools/inspect_html.mjs page.html --viewports 1440x1000,390x844 > page.inspect.ndjson
+node tools/check_layout.mjs deck.html --max-void 80
 python3 tools/diff_specimens.py a.pptx b.pptx
 ```
 
@@ -30,6 +32,25 @@ compositions of one design. With that, `diff_specimens.py` covers every surface 
 contract, not only decks, and the anti-convergence hard gate is executable across all of them. The
 Python test suite stays hermetic: it does not exercise this tool, and the harness treats browser
 capture as runner-provided evidence, same as renders and screenshots.
+
+## Checking what the font decides
+
+`check_layout.mjs` measures the one thing the subset cannot fix at authoring time. Every box is
+declared in px, but a text box's declared height is a prediction: type is measured by the font, so a
+title expected on one line wraps to two, overflows, and lands on the paragraph beneath it. The
+overflow is in the presentation file as well as the browser, because a text box overflows rather
+than shrinks, and it is invisible in the source.
+
+Three failures, all measured: `overflow` (text taller than its declared box), `collision` (two text
+objects overlapping once wrapped), and `escape` (an object outside the 1280x720 canvas). Shapes may
+overlap anything and text may sit on a shape — a label inside a bar, a bar crossing its axis — so
+only text against text counts. `--max-void N` additionally reports the largest empty band per slide
+above a threshold; it is opt-in because how much space a surface should carry is a judgment an
+identity declares, not a constant a tool knows.
+
+This exists because the failure it catches survived a full verification round: the collision was
+visible in a rendered slide, a reviewer looked at that slide, and the reviewer missed it. Attention
+does not scale across five slides and three revisions; measurement does.
 
 ## Comparing specimens
 

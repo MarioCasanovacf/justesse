@@ -75,8 +75,16 @@ stylesheet.
 Then look at the slides before converting, and look at all of them. Text is measured by the font,
 not by the number the author estimated, so a title that was expected to fit can wrap to a second
 line and land on the paragraph beneath it. That collision is in the presentation file too: a text
-box overflows its declared height rather than shrinking to fit. Reviewing only the first slide is
-how it survives to the recipient.
+box overflows its declared height rather than shrinking to fit.
+
+Do not rely on looking, though. This failure is measurable and therefore should be measured: text
+taller than its declared box, two text objects overlapping once wrapped, and any object outside the
+canvas are three checks a browser can run over every slide at once. Shapes may overlap freely and
+text may sit on a shape, since a label inside a bar is composition; only text against text is a
+collision. This repository's `tools/check_layout.mjs` is one implementation. Reviewing by eye is
+what lets this defect through — not because reviewers are careless, but because attention does not
+hold across every slide of every revision, and this is exactly the class of defect that hides in
+the slides nobody opens twice.
 
 ## What does not convert
 

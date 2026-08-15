@@ -171,6 +171,24 @@ annotation. Slide 05 carries the risk, the review window, and the open question:
 the data cannot see. No number left the fixture. Deck: 5 slides, **125** native objects, 0
 rasterized.
 
+**The named gap is now a tool.** `tools/check_layout.mjs` measures what the subset cannot fix at
+authoring time: text taller than its declared box, two text objects overlapping once wrapped, and
+any object off the canvas. Shapes may overlap anything and text may sit on a shape, so a label
+inside a bar and a bar crossing its axis stay clean; only text against text is a collision, which
+is the same discrimination that had to be made by hand three times this round. Verified in both
+directions — PASS on the current deck, and on a fixture rebuilt from the original defect it reports
+the overflow (92 px of text in a 60 px box), the collision that followed, and an off-canvas box,
+while leaving the label-on-bar alone. `--max-void N` reports the largest empty band per slide above
+a threshold and stays opt-in, because how much space a surface should carry is declared, not
+constant.
+
+**Round 3 is specified and blocked.** `round-3-protocol.md` fixes the two limitations this round
+could not: a fictional profile and a procedural blind. It separates declarant, builder, and scorer
+so that no one holds two roles, states what would falsify the mechanism before anyone runs it, and
+requires deterministic checks to pass before a scorer spends attention. Its one blocking dependency
+cannot be simulated — a person who is not the harness author has to declare a profile. A
+declaration invented by the builder reproduces round 2's limitation under a new name.
+
 **Verdict update.** The human gate is answered: the operator would publish these as his own. Rule
 promotion from round 2 is no longer provisional. The gate cost four corrections after every
 automated check had passed — a preview that never existed, a collision the reviewer's own eyes
