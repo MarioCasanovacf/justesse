@@ -195,3 +195,45 @@ automated check had passed — a preview that never existed, a collision the rev
 missed, space left over rather than assigned, and a closing posture the mechanism could not
 express. Each one is now a rule with an assertion behind it. That is the argument for the human
 gate stated as evidence rather than as principle.
+
+## Round 3 — 2026-08-15 — first real declarant, one surface, no scorer
+
+**Status.** Protocol steps 2–4 of `round-3-protocol.md` are complete. Steps 5–7 — blind labelling,
+scoring, and the declarant's human gate — are not started, because the builder may not score and no
+third party has been assigned. This entry records a build, not a result.
+
+**Setup.** Declarant: the harness operator, declaring `personal:leon` — the first declaration with a
+real owner rather than a fictional one. Gate: PASS 10/10 (declaration sha `e9e9ed4b…`). Builder: this
+session. Fixture `subscriber-feedback-v1` (sha `cb786192…`) unchanged. Skill at `4cf0cd6`. One
+surface: the executive decision memo, built as presentation-safe HTML and converted — 5 slides, 133
+native objects, 0 rasterized.
+
+**Limitations, on the record.** The declarant had already seen every meridian specimen before
+declaring, so this declaration is not blind and does not replace a cold declarant. One surface does
+not exercise translation across the four contract surfaces. No scorer exists, so no rubric score
+exists — the round is deliberately incomplete rather than quietly self-scored, which is the failure
+round 2 recorded and this protocol was written to prevent.
+
+**Deterministic checks.** `check_layout.mjs` found two defects on the first pass: a peak value label
+colliding with its chart heading, and a 108 px void on slide 1. One batched fix — the series
+rescaled from 24 px to 20 px per item, and slide 1 given the standard of decision it was missing —
+then a confirming pass: PASS, largest empty band 64 px. Anti-convergence against the meridian deck:
+**DISTINCT DESIGNS**, on 139 visible deltas — 46 typeface, 29 object kind, 38 geometry, 17 type
+size, 7 color — with 31 content differences excluded from the verdict.
+
+**The finding worth more than the pass.** The builder's own recommendation did not survive
+measurement. Surface `#FBFAF7` was recommended to the declarant over the alternative on the argument
+that warm paper reads as document and cool reads as interface; `diff_specimens.py` grades that pair
+at **dE 1.5, sub-perceptual**. The distinctness the round demonstrates comes from typography, ink,
+hairline color, and geometry — not from the canvas the argument leaned on. The instrument was built
+to catch a designer asserting a difference no viewer could name, and the first thing it caught was
+the builder doing exactly that while advising the declarant. Recommendations to a declarant are
+claims, and claims are checkable.
+
+**What the declaration reached.** Two consequences the design could not have absorbed by tone alone.
+Hue reserved for warning and negative survived a deck that is mostly negative evidence: garnet marks
+the two frictions under question and neutral gray carries the rest, so the reserved hue still
+distinguishes on a slide where everything is negative. And the declared action treatment — an
+underlined label, never a filled box — forced a structural answer, since `text-decoration` is
+outside the converting subset: the underline is a 1 px line object beneath the label. The
+declaration reached the object inventory, not just the stylesheet.
