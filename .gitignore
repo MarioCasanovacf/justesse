@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .venv/
+node_modules/
 
 # Archived calibration output from the retired bundled profile. These directories hold a specific
 # person's palette, type stack, and voice in full, which is exactly what this repository no longer

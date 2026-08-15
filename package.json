@@ -1,0 +1,15 @@
+{
+  "name": "justesse-tools",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Browser measurement for the Justesse harness. The Python tools have no dependencies; only the two .mjs tools need a browser, and they use an installed Chrome rather than a downloaded one.",
+  "type": "commonjs",
+  "scripts": {
+    "postinstall-note": "echo 'Install with PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install: these tools drive the system Chrome channel, so the bundled browser downloads are not needed.'",
+    "layout": "node tools/check_layout.mjs",
+    "inspect": "node tools/inspect_html.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.62.1"
+  }
+}

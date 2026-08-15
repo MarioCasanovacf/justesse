@@ -121,16 +121,22 @@ function collectAtoms() {
 }
 
 const args = process.argv.slice(2);
-const flags = args.filter((a) => a.startsWith("--"));
-const files = args.filter((a) => !a.startsWith("--"));
-if (files.length !== 1) {
+// A flag's value does not start with `--`, so it has to be consumed by index rather than filtered
+// out by shape; otherwise `--viewports 1440x1000` reads as a second input file.
+const viewportIndex = args.findIndex((a) => a === "--viewports" || a.startsWith("--viewports="));
+const consumed = new Set();
+let viewportSpec = "1440x1000,390x844";
+if (viewportIndex !== -1) {
+  const inline = args[viewportIndex].includes("=");
+  viewportSpec = inline ? args[viewportIndex].split("=")[1] : args[viewportIndex + 1];
+  consumed.add(viewportIndex);
+  if (!inline) consumed.add(viewportIndex + 1);
+}
+const files = args.filter((a, index) => !a.startsWith("--") && !consumed.has(index));
+if (files.length !== 1 || !viewportSpec) {
   console.error("usage: node tools/inspect_html.mjs page.html [--viewports WxH,WxH]");
   process.exit(2);
 }
-const viewportFlag = flags.find((f) => f.startsWith("--viewports"));
-const viewportSpec = viewportFlag
-  ? (viewportFlag.includes("=") ? viewportFlag.split("=")[1] : args[args.indexOf(viewportFlag) + 1])
-  : "1440x1000,390x844";
 const viewports = viewportSpec.split(",").map((pair) => {
   const [width, height] = pair.trim().split("x").map(Number);
   if (!width || !height) fail(`bad viewport ${pair}`);

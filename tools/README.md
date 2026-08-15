@@ -24,13 +24,20 @@ node tools/check_layout.mjs deck.html --max-void 80
 python3 tools/diff_specimens.py a.pptx b.pptx
 ```
 
-`inspect_html.mjs` is the one tool with a runner-provided dependency: it needs the `playwright`
-package resolvable from the invoking directory plus an installed Chrome or Chromium (it prefers the
-system Chrome channel, so no browser download is required). It renders the page at each requested
+The two `.mjs` tools are the ones with a runner-provided dependency: they need the `playwright`
+package resolvable from the invoking directory plus an installed Chrome or Chromium (they prefer the
+system Chrome channel, so no browser download is required). Install it with the download skipped,
+which is what this repository pins:
+
+```bash
+PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install
+```
+
+`inspect_html.mjs` renders the page at each requested
 viewport and emits one "slide" per viewport, because a responsive surface at two widths is two
 compositions of one design. With that, `diff_specimens.py` covers every surface in the harness
 contract, not only decks, and the anti-convergence hard gate is executable across all of them. The
-Python test suite stays hermetic: it does not exercise this tool, and the harness treats browser
+Python test suite stays hermetic: it does not exercise these tools, and the harness treats browser
 capture as runner-provided evidence, same as renders and screenshots.
 
 ## Checking what the font decides
